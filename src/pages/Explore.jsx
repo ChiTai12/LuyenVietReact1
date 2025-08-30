@@ -219,8 +219,20 @@ export default function Explore() {
       </div>
 
       {error && (
-        <div className="explore-error">
-          <p>{error}</p>
+        <div
+          className="explore-error"
+          style={{
+            color: "red",
+            background: "#fffbe7",
+            border: "1px solid #fbbf24",
+            padding: 16,
+            borderRadius: 8,
+            margin: "16px 0",
+          }}
+        >
+          <p style={{ marginBottom: 8 }}>
+            <b>Lỗi tải tin tức:</b> {error}
+          </p>
           <button onClick={load} className="explore-retry-btn">
             Thử lại
           </button>

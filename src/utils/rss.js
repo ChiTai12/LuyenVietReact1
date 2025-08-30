@@ -16,39 +16,25 @@ function extractFirstImageFromHtml(html) {
 export async function fetchRssItems(feedUrl, category = "") {
   let lastError = null;
 
-  // Try each proxy until one works
+  // Luôn thử lại từ proxy đầu tiên mỗi lần fetch
   for (let i = 0; i < CORS_PROXIES.length; i++) {
+    const proxyUrl = CORS_PROXIES[i] + encodeURIComponent(feedUrl);
     try {
-      const proxyUrl =
-        CORS_PROXIES[currentProxyIndex] + encodeURIComponent(feedUrl);
-      console.log(`Trying proxy ${currentProxyIndex + 1}:`, proxyUrl);
-
+      // Không set User-Agent vì nhiều proxy sẽ chặn
       const resp = await fetch(proxyUrl, {
-        headers: {
-          "User-Agent": "Mozilla/5.0 (compatible; NewsApp/1.0)",
-        },
-        timeout: 10000, // 10 second timeout
+        timeout: 10000,
       });
-
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-
       const text = await resp.text();
-
-      // Successfully got data, keep using this proxy
       const result = parseRssText(text, feedUrl, category);
-      console.log(`✅ Success with proxy ${currentProxyIndex + 1}`);
       return result;
     } catch (error) {
-      console.warn(`❌ Proxy ${currentProxyIndex + 1} failed:`, error.message);
       lastError = error;
-
-      // Try next proxy
-      currentProxyIndex = (currentProxyIndex + 1) % CORS_PROXIES.length;
     }
   }
-
-  // All proxies failed, throw last error
-  throw new Error(`All CORS proxies failed. Last error: ${lastError?.message}`);
+  throw new Error(
+    `Tất cả proxy CORS đều thất bại. Lỗi cuối: ${lastError?.message}`
+  );
 }
 
 function parseRssText(text, feedUrl, category) {
