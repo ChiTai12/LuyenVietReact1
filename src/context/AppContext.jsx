@@ -255,13 +255,35 @@ export function AppProvider({ children }) {
       { ...post, id: post.id || Date.now().toString() },
       ...prev,
     ]);
+    // If the current user is the author, increment their post count
+    setCurrentUser((prev) => {
+      try {
+        if (!prev) return prev;
+        const authorId = post.author?.id || post.id;
+        if (prev.id && authorId && prev.id === authorId) {
+          const postsCount = (prev.postsCount || 0) + 1;
+          return { ...prev, postsCount };
+        }
+        return prev;
+      } catch (e) {
+        return prev;
+      }
+    });
   }
 
   function toggleFavorite(postId) {
+    // Read current presence synchronously and update states separately
+    const wasPresent = favorites.has(postId);
     setFavorites((prev) => {
       const next = new Set(prev);
-      next.has(postId) ? next.delete(postId) : next.add(postId);
+      wasPresent ? next.delete(postId) : next.add(postId);
       return next;
+    });
+    // update currentUser favoritesCount (do not call setState inside another updater)
+    setCurrentUser((cu) => {
+      if (!cu) return cu;
+      const favoritesCount = (cu.favoritesCount || 0) + (wasPresent ? -1 : 1);
+      return { ...cu, favoritesCount };
     });
   }
 
@@ -290,6 +312,20 @@ export function AppProvider({ children }) {
           : p
       )
     );
+    // if current user authored the comment, increment their comment count
+    setCurrentUser((prev) => {
+      try {
+        if (!prev) return prev;
+        const commenterId = comment?.author?.id || comment?.id;
+        if (prev.id && commenterId && prev.id === commenterId) {
+          const commentsCount = (prev.commentsCount || 0) + 1;
+          return { ...prev, commentsCount };
+        }
+        return prev;
+      } catch (e) {
+        return prev;
+      }
+    });
   }
 
   function updateUser(updates) {

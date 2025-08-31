@@ -200,19 +200,7 @@ export default function Explore() {
             {loading ? "Đang tải..." : "Làm mới"}
           </button>
 
-          <button
-            onClick={clearCache}
-            className="explore-clear-cache-btn"
-            style={{
-              background: "#ef4444",
-              color: "white",
-              border: "none",
-              padding: "8px 16px",
-              borderRadius: "6px",
-              marginLeft: "8px",
-              cursor: "pointer",
-            }}
-          >
+          <button onClick={clearCache} className="explore-clear-cache-btn">
             🗑️ Xóa Cache
           </button>
         </div>

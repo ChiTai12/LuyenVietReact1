@@ -40,6 +40,7 @@ export default function Home() {
       {/* Latest News Section - Simplified and beautiful */}
       <div style={{ marginBottom: "40px" }}>
         <div
+          className="latest-header"
           style={{
             background: "linear-gradient(135deg, #10b981, #059669)",
             color: "white",
@@ -52,7 +53,7 @@ export default function Home() {
             boxShadow: "0 8px 25px rgba(16, 185, 129, 0.3)",
             border: "none",
             position: "relative",
-            overflow: "hidden"
+            overflow: "hidden",
           }}
         >
           <span style={{ position: "relative", zIndex: 1 }}>
@@ -60,7 +61,7 @@ export default function Home() {
           </span>
         </div>
 
-        <div className="grid" style={{ marginBottom: "32px" }}>
+        <div className="grid">
           {featuredPosts.length === 0 ? (
             <div className="empty" style={{ gridColumn: "1 / -1" }}>
               <FiTrendingUp
@@ -82,8 +83,9 @@ export default function Home() {
 
       {/* Posts Grid */}
       {remainingPosts.length > 0 && (
-        <div style={{ marginBottom: "32px" }}>
+        <div>
           <div
+            className="other-posts-header"
             style={{
               background: "linear-gradient(135deg, #3b82f6, #1d4ed8)",
               color: "white",
@@ -94,13 +96,13 @@ export default function Home() {
               borderRadius: "12px",
               display: "inline-block",
               boxShadow: "0 8px 25px rgba(59, 130, 246, 0.3)",
-              border: "none"
+              border: "none",
             }}
           >
             Bài viết khác ({remainingPosts.length})
           </div>
 
-          <div className="grid">
+          <div className="grid grid-compact">
             {remainingPosts.map((p) => (
               <PostCard key={p.id} post={p} />
             ))}

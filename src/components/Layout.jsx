@@ -38,14 +38,20 @@ export default function Layout({ children }) {
   // Hàm hiển thị thông tin localStorage
   function showStorageInfo() {
     const storageInfo = getLocalStorageSize();
-    alert(`Thông tin localStorage:\nDung lượng: ${storageInfo.totalSizeMB}MB\nSố keys: ${storageInfo.keysCount}`);
+    alert(
+      `Thông tin localStorage:\nDung lượng: ${storageInfo.totalSizeMB}MB\nSố keys: ${storageInfo.keysCount}`
+    );
   }
 
   // Hàm cleanup localStorage
   function handleCleanup() {
-    if (confirm('Bạn có chắc muốn dọn dẹp localStorage? Điều này sẽ xóa một số dữ liệu cũ.')) {
+    if (
+      confirm(
+        "Bạn có chắc muốn dọn dẹp localStorage? Điều này sẽ xóa một số dữ liệu cũ."
+      )
+    ) {
       cleanupLocalStorage();
-      alert('Đã dọn dẹp localStorage thành công!');
+      alert("Đã dọn dẹp localStorage thành công!");
       window.location.reload(); // Reload để cập nhật UI
     }
   }
@@ -116,7 +122,7 @@ export default function Layout({ children }) {
               ))}
             </select>
           </form>
-          
+
           {/* Storage management buttons */}
           <div style={{ display: "flex", gap: 8 }}>
             <button
@@ -156,8 +162,9 @@ export default function Layout({ children }) {
               🧹
             </button>
           </div>
-          
+
           <div
+            className="user-section"
             style={{
               display: "flex",
               alignItems: "center",
@@ -165,7 +172,7 @@ export default function Layout({ children }) {
               color: "var(--muted)",
             }}
           >
-            <span>Xin chào, {currentUser.name}</span>
+            <span className="greeting">{currentUser.name}</span>
             <button
               onClick={handleLogout}
               style={{

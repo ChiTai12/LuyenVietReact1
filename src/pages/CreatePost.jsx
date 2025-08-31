@@ -20,6 +20,24 @@ export default function CreatePost() {
   // Validation states
   const isFormValid = title.trim().length >= 5 && content.trim().length >= 50;
 
+  // Default thumbnails per category (hoisted so preview can use it)
+  const getDefaultThumbnail = (category) => {
+    const defaultImages = {
+      "Công nghệ":
+        "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&h=600&fit=crop&crop=center",
+      "Kinh doanh":
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop&crop=center",
+      "Thể thao":
+        "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&h=600&fit=crop&crop=center",
+      "Giải trí":
+        "https://images.unsplash.com/photo-1489599511914-e83737003ea2?w=800&h=600&fit=crop&crop=center",
+    };
+    return (
+      defaultImages[category] ||
+      "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=600&fit=crop&crop=center"
+    );
+  };
+
   // Hàm nén ảnh
   function compressImage(file) {
     return new Promise((resolve) => {
@@ -282,15 +300,12 @@ export default function CreatePost() {
           </button>
         </div>
 
-        {showPreview && isFormValid && (
+        {showPreview && (
           <div className="preview-section">
             <h3>Preview bài viết</h3>
             <div className="post-card preview-card">
               <img
-                src={
-                  thumbnailUrl ||
-                  `https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=600&fit=crop&crop=center`
-                }
+                src={thumbnailUrl || getDefaultThumbnail(category)}
                 alt="preview"
                 className="post-thumbnail"
               />

@@ -1,3 +1,1257 @@
+@media (max-width: 480px) {
+  .chips-bar {
+    gap: 0.8px;
+    margin: 1px 0 3px 0;
+    padding: 0.5px 0 0.5px 0;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    width: 100vw;
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+  .chip {
+    padding: 0.8px 4px;
+    font-size: 8.5px;
+    border-radius: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* Safe mobile-only tweak: remove left gap and force nav-links to the left edge */
+@media (max-width: 600px) {
+  /* remove any left padding on header */
+  .navbar {
+    padding-left: 0 !important;
+    padding-right: 2px !important;
+    margin-left: 0 !important;
+    box-sizing: border-box;
+    width: 100vw !important;
+    left: 0 !important;
+  }
+
+  /* ensure left container has no inset */
+  .navbar .navbar-left {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+  }
+
+  /* force nav-links flush to left edge */
+  .navbar .nav-links {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+    justify-content: flex-start !important;
+    gap: 1px !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important; /* momentum scrolling on iOS */
+    touch-action: pan-x; /* allow horizontal pan */
+    white-space: nowrap !important;
+    width: calc(100vw - 6px) !important; /* account for small right padding */
+    box-sizing: border-box !important;
+    left: 0 !important;
+  }
+
+  .nav-links a {
+    padding: 2px 3px !important;
+    font-size: 11px !important;
+    min-width: 24px !important;
+    margin-right: 2px !important;
+    flex: 0 0 auto !important; /* prevent items from stretching so they overflow and can be scrolled */
+    gap: 1px !important;
+  }
+
+  /* also ensure root containers have no horizontal inset on mobile */
+  html,
+  body,
+  #root,
+  .app-shell {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+  }
+}
+@media (max-width: 480px) {
+  .main-content {
+    max-width: 95vw;
+    width: 95vw;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .post-card {
+    max-width: 95vw;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    background: #fff;
+    padding: 0;
+    box-sizing: border-box;
+  }
+}
+@media (max-width: 480px) {
+  /* Card và main-content full width, không dư phải, không margin/padding */
+  .main-content {
+    width: 100vw;
+    max-width: 100vw;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .post-card {
+    width: 100vw;
+    max-width: 100vw;
+    margin: 0 0 12px 0;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    background: #fff;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .post-card .thumb,
+  .post-image img {
+    width: 100%;
+    max-width: 100%;
+    height: 48px;
+    border-radius: 6px 6px 0 0;
+    object-fit: cover;
+    display: block;
+  }
+  .post-card .post-content {
+    padding: 2px 4px 2px 4px;
+  }
+  .post-card .post-title {
+    font-size: 0.75rem;
+    margin-bottom: 1px;
+    line-height: 1.1;
+  }
+  .post-card .post-description {
+    font-size: 0.65rem;
+    margin-bottom: 1px;
+    line-height: 1.1;
+  }
+  .post-card .post-category {
+    font-size: 0.55rem;
+    padding: 1px 3px;
+    border-radius: 4px;
+    margin-bottom: 2px;
+  }
+  .post-card .post-tags {
+    gap: 1px;
+    margin-top: 2px;
+  }
+  .post-card .tag,
+  .post-card .tags-overflow {
+    font-size: 0.55rem;
+    padding: 1px 3px;
+    border-radius: 6px;
+    max-width: 22vw;
+  }
+  .post-card .post-time,
+  .post-card .post-footer {
+    font-size: 0.55rem;
+    gap: 2px;
+    padding: 1px 0;
+  }
+  .post-card .author-avatar {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 2px;
+  }
+  .post-card .author-name {
+    font-size: 0.55rem;
+  }
+  .post-card .post-actions {
+    gap: 1px;
+  }
+}
+.main-content {
+  max-width: 85vw;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+.chips-bar {
+  gap: 4px;
+  margin: 2px 0 6px;
+  padding: 4px 0 2px 0;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+}
+.chip {
+  padding: 3px 8px;
+  font-size: 9px;
+  border-radius: 10px;
+  min-width: 36px;
+  margin-right: 1px;
+}
+.chip.active {
+  font-size: 9px;
+  border-radius: 10px;
+}
+.post-card,
+.explore-card {
+  margin-left: 0;
+  margin-right: 0;
+  border-radius: 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.01);
+  width: 100%;
+  max-width: 100%;
+}
+.post-card .thumb,
+.explore-card-image {
+  width: 100%;
+  max-width: 100%;
+  height: 44px;
+  border-radius: 5px 5px 0 0;
+  object-fit: cover;
+}
+.main-btn,
+.big-btn,
+.news-btn,
+.explore-refresh-btn {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  font-size: 11px;
+  padding: 5px 0;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+.post-card .post-title,
+.explore-title {
+  font-size: 10px;
+  margin-bottom: 1px;
+}
+.post-card .post-description,
+.explore-excerpt {
+  font-size: 8px;
+  margin-bottom: 1px;
+}
+.post-card .post-category,
+.explore-category {
+  font-size: 7px;
+  padding: 0.5px 3px;
+  border-radius: 5px;
+}
+@media (max-width: 480px) {
+  .main-content {
+    max-width: 90vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+  }
+  .post-card,
+  .explore-card {
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    width: 100%;
+    max-width: 100%;
+  }
+  .post-card .thumb,
+  .explore-card-image {
+    width: 100%;
+    max-width: 100%;
+    height: 60px;
+    border-radius: 6px 6px 0 0;
+    object-fit: cover;
+  }
+  .main-btn,
+  .big-btn,
+  .news-btn,
+  .explore-refresh-btn {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    font-size: 13px;
+    padding: 7px 0;
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+  .post-card .post-title,
+  .explore-title {
+    font-size: 12px;
+    margin-bottom: 2px;
+  }
+  .post-card .post-description,
+  .explore-excerpt {
+    font-size: 10px;
+    margin-bottom: 2px;
+  }
+  .post-card .post-category,
+  .explore-category {
+    font-size: 8px;
+    padding: 1px 5px;
+    border-radius: 6px;
+  }
+}
+@media (max-width: 480px) {
+  .main-content {
+    max-width: 96vw;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+  }
+  .post-card,
+  .explore-card {
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    width: 100%;
+    max-width: 100%;
+  }
+  .post-card .thumb,
+  .explore-card-image {
+    width: 100%;
+    max-width: 100%;
+    height: 80px;
+    border-radius: 8px 8px 0 0;
+    object-fit: cover;
+  }
+  .main-btn,
+  .big-btn,
+  .news-btn,
+  .explore-refresh-btn {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    font-size: 15px;
+    padding: 10px 0;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+}
+@media (max-width: 480px) {
+  .navbar .search-bar,
+  .navbar .search-input,
+  .navbar .search-box {
+    width: 8vw;
+    padding: 1px 2px;
+    border-radius: 8px;
+    margin-right: 1px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+@media (max-width: 480px) {
+  .navbar .search-bar,
+  .navbar .search-input,
+  .navbar .search-box {
+    width: 12vw;
+    max-width: 12vw;
+    min-width: 18px;
+    font-size: 8px;
+    padding: 1px 2px;
+    border-radius: 8px;
+    margin-right: 1px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .navbar select,
+  .navbar .category-dropdown {
+    width: 12vw;
+    max-width: 12vw;
+    min-width: 18px;
+    font-size: 8px;
+    padding: 1px 2px;
+    border-radius: 8px;
+    margin-right: 1px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+@media (max-width: 480px) {
+  .navbar .search-bar,
+  .navbar .search-input,
+  .navbar .search-box {
+    width: 16vw;
+    max-width: 16vw;
+    min-width: 24px;
+    font-size: 9px;
+    padding: 1.5px 3px;
+    border-radius: 10px;
+    margin-right: 1px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .navbar select,
+  .navbar .category-dropdown {
+    width: 16vw;
+    max-width: 16vw;
+    min-width: 24px;
+    font-size: 9px;
+    padding: 1.5px 3px;
+    border-radius: 10px;
+    margin-right: 1px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+@media (max-width: 480px) {
+  .navbar .search-bar,
+  .navbar .search-input,
+  .navbar .search-box {
+    max-width: 20vw;
+    min-width: 30px;
+    font-size: 10px;
+    padding: 2px 4px;
+    border-radius: 12px;
+    margin-right: 2px;
+  }
+  .navbar select,
+  .navbar .category-dropdown {
+    max-width: 20vw;
+    min-width: 30px;
+    font-size: 10px;
+    padding: 2px 4px;
+    border-radius: 12px;
+    margin-right: 2px;
+  }
+}
+@media (max-width: 480px) {
+  .navbar .search-bar,
+  .navbar .search-input,
+  .navbar .search-box {
+    max-width: 28vw;
+    min-width: 40px;
+    font-size: 11px;
+    padding: 3px 5px;
+    margin-right: 2px;
+  }
+}
+@media (max-width: 480px) {
+  .navbar .search-bar,
+  .navbar .search-input,
+  .navbar .search-box {
+    max-width: 38vw;
+    min-width: 60px;
+    font-size: 12px;
+    padding: 4px 6px;
+    margin-right: 2px;
+  }
+  .navbar select,
+  .navbar .category-dropdown {
+    max-width: 28vw;
+    min-width: 40px;
+    font-size: 12px;
+    padding: 4px 6px;
+    margin-right: 2px;
+  }
+  .navbar .actions button,
+  .navbar .actions .icon-btn {
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    font-size: 14px;
+    padding: 0;
+    margin-right: 2px;
+  }
+  .navbar .user-section {
+    font-size: 11px !important;
+    min-width: 0;
+    max-width: 30vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 2px;
+  }
+}
+@media (max-width: 480px) {
+  .navbar {
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: flex-start;
+    min-width: 100vw;
+    max-width: 100vw;
+    overflow: visible;
+  }
+  .navbar .navbar-left,
+  .nav-links {
+    flex-wrap: wrap;
+    overflow-x: visible;
+    max-width: 100vw;
+    width: 100vw;
+    display: flex;
+    scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+  .navbar .search-bar,
+  .navbar .search-input,
+  .navbar .search-box {
+    min-width: 0;
+    max-width: 60vw;
+    width: auto;
+    font-size: 13px;
+    margin-left: 2px;
+    margin-right: 6px;
+    box-sizing: border-box;
+  }
+  .navbar .user-section,
+  .navbar .actions {
+    min-width: 0;
+    max-width: 18vw; /* shrink greeting area */
+    overflow-x: hidden;
+    flex-wrap: nowrap;
+    font-size: 11px !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .navbar .user-section span,
+  .navbar .actions span {
+    display: none;
+  }
+  .navbar .icon,
+  .navbar .user-avatar {
+    width: 24px;
+    height: 24px;
+  }
+}
+@media (max-width: 400px) {
+  .navbar {
+    padding: 4px 2px;
+    min-height: 36px;
+    gap: 2px;
+  }
+  .navbar .brand {
+    font-size: 13px;
+    min-width: 54px;
+    margin-right: 2px;
+    line-height: 1.1;
+  }
+  .navbar .navbar-left {
+    gap: 2px;
+  }
+  /* make greeting text a touch smaller on very small screens */
+  .navbar .user-section {
+    font-size: 10px !important;
+    max-width: 22vw !important;
+  }
+  .nav-links {
+    gap: 2px;
+    max-width: 100vw;
+    width: 100vw;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+  /* Remove this duplicate rule */
+}
+@media (max-width: 480px) {
+  .navbar {
+    padding: 8px 6px;
+    min-height: 44px;
+    max-width: 100vw;
+    box-sizing: border-box;
+    gap: 6px;
+  }
+  .navbar .brand {
+    font-size: 16px;
+    min-width: 70px;
+    margin-right: 4px;
+  }
+  .navbar .navbar-left {
+    gap: 6px;
+    display: flex !important;
+    width: 100vw;
+    max-width: 100vw;
+  }
+  .nav-links {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    width: 100vw;
+    max-width: 100vw;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+  .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+  /* Remove this duplicate rule */
+}
+@media (max-width: 480px) {
+  .main-content,
+  .explore-container {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100vw;
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+  .post-card,
+  .explore-card,
+  .explore-skeleton {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+  .post-card .thumb,
+  .explore-card-image,
+  .skeleton-image {
+    width: 100vw;
+    max-width: 100vw;
+    height: 80px;
+    border-radius: 8px 8px 0 0;
+    object-fit: cover;
+    box-sizing: border-box;
+  }
+  .post-card .post-content,
+  .explore-card-content,
+  .skeleton-content {
+    padding: 6px 8px 8px 8px;
+    box-sizing: border-box;
+  }
+  .chips-bar {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+    width: 100vw;
+    box-sizing: border-box;
+    overflow-x: auto;
+  }
+  .chip {
+    min-width: 56px;
+    max-width: 90vw;
+    box-sizing: border-box;
+  }
+  .main-btn,
+  .big-btn,
+  .news-btn,
+  .explore-refresh-btn {
+    width: 100%;
+    min-width: 0;
+    max-width: 100vw;
+    margin-left: 0;
+    margin-right: 0;
+    box-sizing: border-box;
+  }
+}
+@media (max-width: 480px) {
+  .post-card,
+  .explore-card {
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  }
+  .post-card .thumb,
+  .explore-card-image,
+  .skeleton-image {
+    height: 80px;
+    border-radius: 8px 8px 0 0;
+  }
+  .post-card .post-content,
+  .explore-card-content,
+  .skeleton-content {
+    padding: 6px 4px 8px 4px;
+  }
+  .post-card .post-title,
+  .explore-title {
+    font-size: 13px;
+    margin-bottom: 2px;
+  }
+  .post-card .post-description,
+  .explore-excerpt {
+    font-size: 11px;
+    margin-bottom: 4px;
+  }
+  .post-card .post-category,
+  .explore-category {
+    font-size: 9px;
+    padding: 1.5px 6px;
+    border-radius: 8px;
+  }
+  .chip {
+    padding: 5px 10px;
+    font-size: 11px;
+    border-radius: 12px;
+  }
+}
+@media (max-width: 600px) {
+  .nav-links a {
+    min-width: 56px;
+    max-width: 90px;
+    font-size: 11px;
+    padding: 6px 2px 4px 2px;
+    margin-right: 2px;
+    margin-left: 0;
+    gap: 4px !important;
+  }
+  .nav-links a span {
+    font-size: 10px;
+    line-height: 1.1;
+    padding: 0;
+    margin: 0;
+    max-width: 100%;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+  }
+  .navbar {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100vw;
+    max-width: 100vw;
+    box-sizing: border-box;
+    padding: 0;
+  }
+  .nav-links {
+    width: 100vw;
+    max-width: 100vw;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 0;
+    padding: 0 0 0 2vw;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .nav-links a {
+    flex: 0 0 auto;
+  }
+  .user-info-row {
+    width: 100vw;
+    max-width: 100vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    margin: 0;
+    padding: 4px 2vw 0 0;
+    box-sizing: border-box;
+    border-bottom: 1px solid #f0f0f0;
+    background: #fff;
+  }
+  .user-info-row > * {
+    max-width: 40vw;
+    min-width: 0;
+    margin: 0 2px;
+    text-align: center;
+    word-break: break-word;
+  }
+  .user-info-row .user-name {
+    font-size: 13px;
+    line-height: 1.2;
+    margin-bottom: 0;
+    text-align: center;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+  }
+  .main-content {
+    padding: 0 2vw;
+    max-width: 100vw;
+  }
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    width: 100vw;
+    max-width: 100vw;
+    box-sizing: border-box;
+    padding: 0;
+  }
+  .nav-links {
+    width: 100vw;
+    max-width: 100vw;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-bottom: 2px;
+    padding: 0 0 0 2vw;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+  .nav-links a {
+    flex: 0 0 auto;
+  }
+  .user-info-row {
+    width: 100vw;
+    max-width: 100vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .user-info-row > * {
+    max-width: 40vw;
+    min-width: 0;
+    margin: 0 2px;
+    text-align: center;
+    word-break: break-word;
+  }
+  .user-info-row .user-name {
+    font-size: 13px;
+    line-height: 1.2;
+    margin-bottom: 0;
+    text-align: center;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+  }
+  .chips-bar {
+    gap: 8px;
+    margin: 4px 0 12px;
+    padding: 10px 0 6px 0;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+  .chip {
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 16px;
+    min-width: 60px;
+    margin-right: 2px;
+  }
+  .chip.active {
+    font-size: 12px;
+    border-radius: 16px;
+  }
+  .main-btn,
+  .big-btn,
+  .news-btn,
+  .explore-refresh-btn {
+    padding: 10px 0;
+    font-size: 15px;
+    border-radius: 8px;
+    width: 100%;
+    margin: 8px 0;
+  }
+  .explore-card,
+  .explore-skeleton {
+    border-radius: 10px;
+    margin: 0 1vw 12px 1vw;
+  }
+  .explore-card-image,
+  .skeleton-image {
+    height: 100px;
+    border-radius: 10px 10px 0 0;
+  }
+  .explore-card-content,
+  .skeleton-content {
+    padding: 8px 6px 10px 6px;
+  }
+  .explore-title,
+  .explore-subtitle {
+    padding-left: 2vw;
+  }
+  .explore-title {
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+  .explore-subtitle {
+    font-size: 12px;
+    margin-bottom: 2px;
+  }
+  .explore-btn {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+  }
+  .nav-links a {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+  }
+  .nav-links a svg,
+  .nav-links a span {
+    display: inline-block !important;
+    vertical-align: middle !important;
+    color: inherit !important;
+  }
+  /* reduce brand spacing and nudge nav left into the visible frame */
+  .navbar .brand {
+    margin-right: 0 !important;
+    min-width: 32px !important;
+  }
+
+  .navbar .navbar-left {
+    gap: 2px !important;
+  }
+
+  /* small negative translate to pull nav items left (mobile only) */
+  .navbar .nav-links {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+  }
+
+  /* ensure root containers have no horizontal inset on mobile */
+  html,
+  body,
+  #root,
+  .app-shell {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+  }
+  /* also ensure navbar itself has no left padding */
+  .navbar {
+    padding-left: 0 !important;
+  }
+  .nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-x: visible;
+    width: 100vw;
+    max-width: 100vw;
+    box-sizing: border-box;
+    padding: 0 !important;
+    justify-content: flex-start;
+    align-items: flex-start;
+    row-gap: 2px;
+  }
+  .nav-links a {
+    min-width: 60px;
+    max-width: 110px;
+    flex: 1 1 20%;
+    margin-right: 2px;
+    margin-bottom: 2px;
+  }
+  .nav-links a {
+    white-space: normal;
+    min-width: 60px;
+    max-width: 110px;
+    flex: 1 1 0;
+    justify-content: center;
+    text-align: center;
+    font-size: 12px;
+    padding: 7px 0 3px 0;
+    line-height: 1.2;
+    min-height: 36px;
+  }
+  .nav-links a span {
+    display: block !important;
+    margin-top: 2px;
+    font-size: 11px;
+    line-height: 1.2;
+    max-width: 100%;
+    min-height: 16px;
+    white-space: normal;
+  }
+  .nav-links a svg {
+    min-width: 20px;
+    max-width: 20px;
+    flex-shrink: 0;
+    margin-right: 2px;
+  }
+  .user-info-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 6px;
+    max-width: 100vw;
+    box-sizing: border-box;
+    padding-right: 2vw;
+  }
+  .user-info-row > * {
+    flex-shrink: 1;
+    max-width: 90vw;
+  }
+  .user-info-row .user-name {
+    white-space: normal;
+    text-overflow: unset;
+    overflow: visible;
+    max-width: 60vw;
+    font-size: 13px;
+    line-height: 1.2;
+    word-break: break-word;
+    text-align: right;
+  }
+  .user-info-row .logout-btn {
+    min-width: 28px;
+    max-width: 32px;
+    padding: 4px;
+  }
+}
+@media (max-width: 900px) {
+  .profile-container {
+    display: block;
+    width: 100vw;
+    min-height: unset;
+    margin: 0;
+    max-width: 100vw;
+    padding: 0;
+  }
+  .profile-sidebar-left {
+    display: none !important;
+  }
+  .profile-content {
+    width: 800px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 50px;
+    overflow: hidden;
+    padding: 40px 0px 40px 40px;
+    background: rgb(255, 255, 255);
+  }
+  .profile-card {
+    border-radius: 12px;
+    margin: 0 2vw;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  }
+}
+@media (max-width: 600px) {
+  .explore-container {
+    padding: 0 2vw;
+    margin-top: 8px;
+    max-width: 100vw;
+  }
+  .explore-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom-width: 1px;
+  }
+  .explore-title {
+    font-size: 18px;
+    margin-bottom: 2px;
+    line-height: 1.2;
+  }
+  .explore-subtitle {
+    font-size: 12px;
+    margin-bottom: 2px;
+  }
+  .explore-refresh-btn,
+  .explore-clear-cache-btn {
+    padding: 8px 10px;
+    font-size: 12px;
+    border-radius: 6px;
+    min-width: 80px;
+  }
+
+  /* default colors for the two action buttons */
+  .explore-refresh-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+  }
+  .explore-clear-cache-btn {
+    /* keep clear-cache visually consistent with desktop: no filled background on mobile */
+    background-color: #ef4444 !important;
+    color: inherit;
+    border: 1px solid var(--border);
+    cursor: pointer;
+  }
+
+  /* Desktop: compact horizontal action group for Explore header */
+  @media (min-width: 769px) {
+    .explore-header {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 10px;
+      margin-bottom: 18px;
+    }
+
+    .explore-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Make buttons compact and visually consistent */
+    .explore-refresh-btn,
+    .explore-clear-cache-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      font-size: 14px;
+      border-radius: 10px;
+      min-width: 120px;
+      box-shadow: 0 6px 14px rgba(16, 185, 129, 0.08);
+    }
+
+    .explore-clear-cache-btn {
+      min-width: 110px;
+      padding: 8px 12px;
+      margin-left: 0; /* remove inline style spacing fallback */
+      box-shadow: 0 6px 14px rgba(239, 68, 68, 0.08);
+    }
+  }
+  .explore-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin: 0 -2vw;
+  }
+  .explore-card {
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    margin: 0 0.5vw;
+    border-width: 1px;
+  }
+  .explore-card-image {
+    height: 100px;
+    border-radius: 8px 8px 0 0;
+  }
+  .explore-card-image img {
+    border-radius: 8px 8px 0 0;
+  }
+  .explore-card-content {
+    padding: 8px 6px 10px 6px;
+  }
+  .explore-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+    margin-bottom: 4px;
+  }
+  .explore-title {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .explore-excerpt {
+    font-size: 12px;
+    margin-bottom: 6px;
+    -webkit-line-clamp: 5;
+    line-clamp: 5;
+  }
+  .explore-category {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .explore-time {
+    font-size: 10px;
+  }
+  .explore-btn {
+    width: 26px;
+    height: 26px;
+    font-size: 12px;
+    border-radius: 5px;
+  }
+  .explore-error {
+    padding: 7px;
+    font-size: 12px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+  }
+  .explore-retry-btn {
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 5px;
+  }
+  .explore-skeleton {
+    border-radius: 8px;
+  }
+  .skeleton-image {
+    height: 100px;
+  }
+  .skeleton-content {
+    padding: 8px 6px;
+  }
+}
+/* Prevent long content from breaking mobile viewport
+   - ensure containers and textareas wrap long words
+   - cap images/files to container width
+   - avoid using 100vw for layout (use 100% instead)
+*/
+html,
+body,
+#root {
+  max-width: 100%;
+  overflow-x: hidden; /* hide any accidental horizontal overflow */
+}
+
+/* container safety: make sure primary containers never exceed viewport */
+.main-content,
+.container,
+.profile-content,
+.create-post-form,
+.explore-container {
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* Force wrapping for long/continuous content and preserve newlines */
+.create-post-form textarea,
+.create-post-form .content-editor,
+.post-card .post-content,
+.post-card .post-description,
+.post-card .post-title,
+.explore-card-content,
+.explore-excerpt,
+.navbar .search-input input,
+.navbar .user-section {
+  white-space: pre-wrap; /* preserve breaks but allow wrapping */
+  overflow-wrap: anywhere; /* break long words/URLs */
+  word-break: break-word;
+}
+
+/* Ensure file inputs, images and thumbnails stay inside their containers */
+.create-post-form input[type="file"],
+.post-card img,
+.explore-card img,
+.create-post-form img,
+.profile-avatar,
+.post-card .thumb,
+.explore-card-image img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+pre,
+code {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
 /* Cập nhật CSS variables cho green theme */
 :root {
   --bg: #ffffff;
@@ -99,7 +1353,7 @@ select {
   gap: 10px;
 }
 .nav-links a {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 8px;
   padding: 8px 12px;
@@ -109,6 +1363,14 @@ select {
   position: relative;
   transition: all 0.3s ease;
   overflow: hidden;
+}
+.nav-links a svg,
+.nav-links a span {
+  display: inline-block !important;
+  vertical-align: middle !important;
+  color: inherit !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 .nav-links a::before {
   content: "";
@@ -165,6 +1427,30 @@ select {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+}
+
+/* Scoped mobile search width: only target the header form.search input wrapper */
+@media (max-width: 600px) {
+  header.navbar > div > form.search .search-input {
+    width: 28vw !important;
+    max-width: 28vw !important;
+    min-width: 34px !important;
+  }
+  header.navbar > div > form.search .search-input input {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* explicitly show greeting with small font on mobile without touching nav-links */
+  header.navbar .user-section .greeting {
+    display: inline-block !important;
+    font-size: 10px !important;
+    max-width: 22vw !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    margin-right: 4px !important;
+  }
 }
 
 /* ===== GRID POST CARD SYSTEM (3 COLUMNS) ===== */
@@ -294,6 +1580,57 @@ select {
   padding-top: 12px;
 }
 
+/* Mobile fix: ensure post-meta and footer layout stay compact and avatar keeps reasonable size */
+@media (max-width: 600px) {
+  .post-card .post-meta {
+    padding-top: 8px;
+    margin-top: 8px;
+  }
+
+  .post-card .post-footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    justify-content: space-between;
+    padding-top: 6px;
+  }
+
+  .post-card .author-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+
+  .post-card .author-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    flex: 0 0 28px;
+    max-width: 28px;
+    max-height: 28px;
+  }
+
+  .post-card .author-name {
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 60%;
+  }
+
+  .post-card .post-actions {
+    margin-left: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+}
+
 .post-card .post-time {
   display: flex;
   align-items: center;
@@ -302,6 +1639,27 @@ select {
   font-size: 13px;
   margin-bottom: 12px;
   font-weight: 500;
+}
+
+/* Constrain preview card when used inside create-post form so it can't break layout */
+.create-post-form .preview-card {
+  width: 100% !important;
+  max-width: 760px; /* keep preview readable but within form */
+  margin: 12px auto !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  border-radius: 12px;
+}
+
+.create-post-form .preview-card .post-image {
+  height: 280px; /* slightly larger for preview but fixed to avoid layout shifts */
+}
+
+.create-post-form .preview-card img.post-thumbnail {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
 }
 
 .post-card .post-footer {
@@ -325,6 +1683,25 @@ select {
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
+  flex: 0 0 28px;
+  max-width: 28px;
+  max-height: 28px;
+}
+/* Ensure any image placed inside the avatar wrapper is constrained and covers the area */
+.post-card .author-avatar img,
+.post-card .author-avatar > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 50%;
+  max-width: 100%;
+  max-height: 100%;
+}
+/* Ensure avatar cannot exceed intended small size */
+.post-card .author-avatar {
+  max-width: 28px;
+  max-height: 28px;
 }
 
 .post-card .author-avatar.placeholder {
@@ -576,22 +1953,22 @@ select {
 }
 
 /* Responsive Design */
-@media (max-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+@media (max-width: 400px) {
+  .navbar .navbar-left {
+    gap: 2px;
   }
-}
+  .nav-links {
+    gap: 4px;
+    flex-wrap: wrap;
+    /* use 100% here so the nav fits within its container and doesn't create page-level overflow */
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
 
-@media (max-width: 768px) {
-  .grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .post-card .post-content {
-    padding: 16px;
-  }
+  /* removed orphaned lines that caused syntax errors */
 
   .post-card .post-title {
     font-size: 16px;
@@ -719,12 +2096,12 @@ select {
   margin-bottom: 24px;
 }
 
-.form-label {
-  display: block;
-  color: var(--text);
-  font-weight: 600;
-  margin-bottom: 8px;
-  font-size: 14px;
+.form-group label {
+  color: #4b5563;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.8px;
+  margin-bottom: 2px;
 }
 
 .form-input {
@@ -880,8 +2257,8 @@ select {
   height: 40px;
   border: 4px solid var(--border);
   border-top: 4px solid var(--primary);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
+  max-width: 48px;
+  max-height: 48px;
   margin-right: 16px;
 }
 
@@ -1110,7 +2487,7 @@ select {
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 20px;
-  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.06);
+  box-shadow: 0 10px 30px rgba(124, 58, 237, 0.25);
 }
 .form h1 {
   margin: 0 0 10px;
@@ -1206,11 +2583,15 @@ select {
 }
 
 .profile-header {
+  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+  padding: 32px;
+  border-bottom: 1px solid var(--border);
+}
+.profile-header {
   display: grid;
   justify-items: center;
   margin-bottom: 6px;
 }
-
 .footer {
   padding: 20px;
   color: var(--muted);
@@ -1979,6 +3360,11 @@ select {
   border: 2px dashed var(--border);
   background: rgba(16, 185, 129, 0.02);
   cursor: pointer;
+  width: 100%;
+  box-sizing: border-box; /* ensure padding doesn't enlarge beyond container */
+  white-space: nowrap; /* keep filename on one line */
+  overflow: hidden; /* prevent filename from pushing layout */
+  text-overflow: ellipsis; /* show truncated filename */
 }
 
 .create-post-group input[type="file"]:hover {
@@ -1990,7 +3376,7 @@ select {
 @media (max-width: 768px) {
   .create-post-container {
     margin: 20px auto;
-    padding: 0 16px;
+    padding: 0 20px; /* provide a bit more right spacing on mobile */
   }
 
   .create-post-form {
@@ -2008,10 +3394,155 @@ select {
 
   .create-post-form button {
     width: 100%;
+    min-width: 0;
+  }
+
+  /* Ensure in-form preview card is responsive and doesn't use 100vw which causes overflow */
+  .create-post-form .preview-section,
+  .create-post-form .preview-section .post-card,
+  .create-post-form .preview-card {
+    /* allow the card to be slightly inset from the viewport edges on small screens */
+    width: auto !important;
+    max-width: calc(100% - 32px) !important; /* keep 16px gap both sides */
+    box-sizing: border-box !important;
+    margin: 12px auto !important;
+    overflow: hidden !important; /* prevent child content from overflowing viewport */
+    padding: 0 !important;
+  }
+
+  .create-post-form .post-thumbnail,
+  .create-post-form .preview img.post-thumbnail,
+  .create-post-form .preview {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    object-fit: cover !important;
+    border-radius: 8px;
+    max-height: 320px !important; /* cap height so tall images don't push layout */
+    margin: 0 !important; /* ensure no side margins push outside */
+  }
+
+  /* ensure preview images don't overflow on mobile */
+  .preview-content img,
+  .preview-container img,
+  .preview-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
+  /* if there are very wide images, allow horizontal scroll inside preview-content instead of overflowing page */
+  .preview-content {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Additional safety rules to prevent small overflows when toggling preview */
+  .create-post-container {
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden; /* clip any accidental overflow inside the create-post area */
+    padding-left: 12px;
+    padding-right: 20px; /* nudge content left slightly so preview isn't flush to edge */
+  }
+
+  /* make sure all form children respect box-sizing to avoid unexpected width growth */
+  .create-post-form,
+  .create-post-form * {
+    box-sizing: border-box;
+  }
+
+  /* prevent flex children from forcing a minimum width that causes page overflow */
+  .post-card,
+  .post-card * {
+    min-width: 0 !important;
+  }
+
+  /* ensure preview-card margins don't add horizontal gaps */
+  .create-post-form .preview-card {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
 }
 
 /* ===== TAGS SYSTEM ===== */
+
+/* Mobile safety overrides: force containers to use 100% and prevent page-level horizontal scroll
+   These are scoped and minimal to avoid changing desktop layouts. */
+@media (max-width: 600px) {
+  .navbar {
+    width: 100% !important;
+    left: 0 !important;
+    box-sizing: border-box !important;
+  }
+  html,
+  body,
+  #root,
+  .app-shell {
+    overflow-x: hidden !important; /* prevent accidental page-level horizontal scroll on small screens */
+  }
+}
+
+@media (max-width: 480px) {
+  /* Override older 100vw declarations safely */
+  .main-content,
+  .post-card,
+  .chips-bar {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* clip any overflow coming from nested children when preview toggles */
+  .create-post-container,
+  .create-post-form,
+  .preview-section,
+  .preview-content {
+    overflow-x: hidden !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  /* ensure images and thumbnails never exceed parent width */
+  img,
+  .post-thumbnail,
+  .post-image img,
+  .preview img {
+    max-width: 100% !important;
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+  }
+
+  /* Nudge the blue preview area inward slightly so it's not flush to the right edge */
+  .preview-content {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+
+  /* Ensure preview-card fits exactly within the padded container and is centered */
+  .create-post-form .preview-card {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 12px 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Images inside preview should not have extra margins that push layout */
+  .create-post-form .preview-card .post-image,
+  .create-post-form .preview-card img.post-thumbnail {
+    width: 100% !important;
+    margin: 0 !important;
+    border-radius: 8px !important;
+  }
+}
 .post-tags {
   display: flex;
   flex-wrap: wrap;
@@ -2059,6 +3590,60 @@ select {
 }
 
 /* ===== POST DETAIL STYLES ===== */
+
+/* Responsive: Tối ưu thẻ post-card nhỏ gọn hơn trên mobile */
+@media (max-width: 480px) {
+  .post-card {
+    border-radius: 6px;
+    margin: 8px 0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    width: 100%;
+    max-width: 100vw;
+  }
+  .post-card .post-content {
+    padding: 8px 6px 8px 6px;
+  }
+  .post-card .post-title {
+    font-size: 1rem;
+    margin-bottom: 2px;
+  }
+  .post-card .post-description {
+    font-size: 0.9rem;
+    margin-bottom: 2px;
+  }
+  .post-card .post-category {
+    font-size: 0.7rem;
+    padding: 1px 6px;
+    border-radius: 6px;
+  }
+  .post-card .post-tags {
+    gap: 4px;
+    margin-top: 6px;
+  }
+  .post-card .tag {
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    max-width: 60vw;
+  }
+  .post-card .tags-overflow {
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .post-card .post-time,
+  .post-card .post-footer {
+    font-size: 0.8rem;
+    gap: 6px;
+    padding: 2px 0;
+  }
+  .post-card .thumb {
+    width: 100%;
+    height: 60px;
+    border-radius: 6px 6px 0 0;
+    object-fit: cover;
+  }
+}
 .post-detail-container {
   display: grid;
   grid-template-columns: 1fr 320px;
@@ -2236,7 +3821,7 @@ select {
 }
 
 .comment-submit-btn {
-  background: var(--gradient);
+  background: var(--primary);
   color: white !important;
   border: none;
   padding: 12px 24px;
@@ -2404,6 +3989,103 @@ select {
   transform: none;
 }
 
+/* Make clear-cache button a filled red button with white text (override earlier mobile/orange rules) */
+.explore-clear-cache-btn {
+  background: #ef4444; /* red */
+  color: white;
+  border: none;
+  display: inline-flex;
+  flex-direction: row; /* ensure icon + text are on one line */
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.explore-clear-cache-btn:hover:not(:disabled) {
+  background: #c53030; /* darker red on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(239, 68, 68, 0.3);
+}
+
+.explore-clear-cache-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Icon sizing inside the clear cache button (assumes icon has class 'icon' or is an <svg> inside) */
+.explore-clear-cache-btn .icon,
+.explore-clear-cache-btn svg {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+}
+
+/* If icon above text still appears on very small screens, force no-wrap */
+.explore-clear-cache-btn {
+  white-space: nowrap;
+}
+
+/* Mobile-only: visually center the "Làm mới" (refresh) button inside the Explore header actions
+   Scoped to max-width:600px so desktop layout is untouched. */
+@media (max-width: 600px) {
+  .explore-header .explore-actions {
+    display: flex;
+    flex-direction: row !important; /* make buttons in a row on most mobile */
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: nowrap !important; /* prevent wrapping to new line */
+  }
+
+  .explore-header .explore-actions .explore-refresh-btn,
+  .explore-header .explore-actions .explore-clear-cache-btn {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto !important; /* do not force buttons to take full line */
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    padding: 10px 14px;
+    gap: 8px;
+    margin: 0; /* horizontal layout uses gap for spacing */
+    white-space: nowrap !important;
+  }
+
+  /* specifically ensure the refresh button's inner content is centered */
+  .explore-header .explore-actions .explore-refresh-btn {
+    justify-content: center !important;
+    text-align: center;
+    width: auto !important;
+  }
+
+  .explore-header .explore-actions .explore-clear-cache-btn {
+    color: white;
+    border: none;
+  }
+}
+
+/* On very small screens stack vertically for readability */
+@media (max-width: 420px) {
+  .explore-header .explore-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .explore-header .explore-actions .explore-refresh-btn,
+  .explore-header .explore-actions .explore-clear-cache-btn {
+    width: auto !important;
+    min-width: 120px;
+    margin: 8px 0;
+  }
+}
+
 .explore-refresh-btn .spinning {
   animation: spin 1s linear infinite;
 }
@@ -2520,6 +4202,22 @@ select {
   line-height: 1.4;
 }
 
+/* Responsive: make the 'Tin tức mới nhất' header smaller on mobile */
+@media (max-width: 600px) {
+  .latest-header {
+    padding: 8px 14px !important;
+    font-size: 15px !important;
+    margin-bottom: 18px !important;
+    border-radius: 10px !important;
+    box-shadow: 0 6px 18px rgba(16, 185, 129, 0.18) !important;
+  }
+
+  .latest-header span {
+    font-size: 15px !important;
+    font-weight: 700 !important;
+  }
+}
+
 .explore-title a {
   color: var(--text);
   text-decoration: none;
@@ -2530,6 +4228,60 @@ select {
   color: var(--primary);
 }
 
+/* Ensure .latest-header aligns with .grid / post-card left edge on responsive widths */
+@media (max-width: 1024px) {
+  /* grid uses 16px horizontal padding at <=1024px */
+  .latest-header {
+    margin: 0 16px 16px !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* grid uses 12px horizontal padding at <=768px */
+  .latest-header {
+    margin: 0 12px 14px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .latest-header {
+    margin: 0 12px 12px !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    font-size: 14px !important;
+  }
+}
+
+/* Make the "Bài viết khác" header match the exact sizing of .latest-header */
+@media (max-width: 1024px) {
+  .other-posts-header {
+    margin: 0 16px 16px !important;
+    padding: 8px 12px !important; /* vertical 8px to match .latest-header */
+    font-size: 16px !important;
+    display: inline-block !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .other-posts-header {
+    margin: 0 12px 14px !important;
+    padding: 8px 10px !important;
+    font-size: 15px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .other-posts-header {
+    margin: 0 12px 12px !important;
+    padding: 8px 8px !important;
+    font-size: 14px !important;
+  }
+}
+
 .explore-excerpt {
   color: var(--muted);
   font-size: 14px;
@@ -2537,6 +4289,7 @@ select {
   margin: 0 0 16px 0;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -2546,6 +4299,14 @@ select {
   justify-content: space-between;
   align-items: center;
   margin-top: auto;
+}
+
+/* Header-specific: keep the Explore header action buttons compact and centered on desktop */
+.explore-header .explore-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
 }
 
 .explore-source {
@@ -2658,28 +4419,115 @@ select {
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
+  .explore-container {
+    /* keep small symmetric horizontal padding so both sides have the same gap */
+    padding: 0 8px; /* top/bottom left/right */
+    margin-top: 16px;
+  }
   .explore-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
   }
-
+  .explore-title {
+    font-size: 22px;
+    margin-bottom: 4px;
+  }
+  .explore-subtitle {
+    font-size: 13px;
+  }
+  .explore-refresh-btn,
+  .explore-clear-cache-btn {
+    padding: 10px 14px;
+    font-size: 13px;
+    border-radius: 8px;
+  }
   .explore-grid {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 12px;
   }
-
+  .explore-card {
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+  .explore-card-image {
+    height: 140px;
+  }
+  .explore-card-content {
+    padding: 12px;
+  }
+  .explore-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    margin-bottom: 8px;
+  }
   .explore-title {
-    font-size: 24px;
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  .explore-excerpt {
+    font-size: 13px;
+    margin-bottom: 10px;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+  }
+  .explore-category {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 14px;
+  }
+  .explore-time {
+    font-size: 11px;
+  }
+  .explore-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 13px;
+    border-radius: 6px;
+  }
+  .explore-error {
+    padding: 10px;
+    font-size: 13px;
+    border-radius: 8px;
+  }
+  .explore-retry-btn {
+    padding: 6px 12px;
+    font-size: 13px;
+    border-radius: 6px;
+  }
+  .explore-skeleton {
+    border-radius: 10px;
+  }
+  .skeleton-image {
+    height: 140px;
+  }
+  .skeleton-content {
+    padding: 12px;
+  }
+}
+
+/* extra small screens: nudge further left so cards feel edge-to-edge */
+@media (max-width: 480px) {
+  .explore-container {
+    padding: 0 6px; /* symmetric small padding on very small screens */
   }
 }
 
 /* ===== NEW PROFILE PAGE STYLES ===== */
 .profile-container {
-  display: flex;
-  width: 100vw;
-  height: 100vh;
+  /* use grid so media queries can switch columns cleanly */
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  min-height: calc(100vh - 120px);
+  max-width: 1200px;
+  margin: 48px auto 0;
+  padding: 0 24px;
+  gap: 40px;
+  box-sizing: border-box;
 }
 
 .profile-hero {
@@ -2716,6 +4564,129 @@ select {
   gap: 24px;
 }
 
+/* Desktop-only: make profile visually match reference screenshot */
+@media (min-width: 1024px) {
+  .profile-container {
+    max-width: 1100px;
+    margin: 32px auto;
+    grid-template-columns: 380px 1fr;
+    gap: 36px;
+    align-items: stretch; /* ensure both columns stretch to the same height */
+  }
+
+  .profile-sidebar-left {
+    background-color: rgb(4, 120, 87);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    position: relative;
+    flex: 1 1 0%;
+    padding: 40px;
+    overflow: hidden;
+    align-self: stretch; /* stretch to match the height of the right column */
+    min-height: unset; /* remove fixed min-height so it sizes to content/peer column */
+  }
+
+  .profile-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 18px 22px 28px;
+    box-shadow: 0 18px 40px rgba(9, 30, 63, 0.06);
+    border: 1px solid rgba(15, 23, 42, 0.03);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    flex: 1 1 auto;
+  }
+
+  .profile-hero {
+    background: linear-gradient(180deg, #eef6fb 0%, #f4f8fb 100%);
+    border-radius: 12px;
+    padding: 22px 20px;
+    margin-bottom: 18px;
+  }
+
+  .profile-hero-bg {
+    height: 96px;
+    background: linear-gradient(180deg, #ecf8fb 0%, #eef8f6 100%);
+  }
+
+  .profile-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 3px solid #ffffff;
+    box-shadow: 0 8px 24px rgba(16, 24, 40, 0.12);
+    object-fit: cover;
+    background: #fff;
+  }
+
+  .profile-hero-content {
+    margin-top: -42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+  }
+
+  /* push avatar to the right on desktop so it matches the reference layout */
+  .profile-hero .avatar-wrap,
+  .profile-avatar-wrapper {
+    margin-left: auto;
+  }
+
+  .profile-info {
+    text-align: center;
+    color: #0b1220;
+  }
+
+  .profile-title {
+    font-size: 20px;
+    color: #0b1220;
+    margin: 0 0 6px 0;
+    font-weight: 700;
+  }
+
+  .profile-subtitle {
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 10px;
+  }
+
+  .file-upload-area {
+    border-radius: 10px;
+    padding: 30px;
+  }
+
+  .btn-primary.save-btn {
+    background: linear-gradient(135deg, #10b981, #059669);
+    box-shadow: 0 8px 30px rgba(16, 185, 129, 0.15);
+  }
+
+  .btn-secondary.cancel-btn {
+    background: #ffffff;
+    border: 1px solid rgba(16, 185, 129, 0.12);
+  }
+
+  .profile-stats {
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .profile-stats .stat-item {
+    border-radius: 10px;
+    padding: 18px 12px;
+    box-shadow: 0 8px 30px rgba(16, 185, 129, 0.04);
+    background: #ffffff;
+    text-align: center;
+  }
+}
+
 .profile-avatar-wrapper {
   position: relative;
   flex-shrink: 0;
@@ -2736,6 +4707,51 @@ select {
   align-items: center;
   justify-content: center;
   color: var(--muted);
+}
+
+/* Small-screen fixes: reduce enforced min-heights and hero height to avoid layout overflow */
+@media (max-width: 480px) {
+  .profile-container {
+    min-height: auto; /* avoid forcing large viewport height on small phones */
+    padding: 0 12px;
+    gap: 16px;
+  }
+
+  .profile-hero-bg {
+    height: 96px; /* slightly smaller hero on small screens */
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+  }
+
+  .profile-hero-content {
+    margin-top: -48px; /* reduce overlap so content stays in view */
+    padding: 0 16px 20px;
+    gap: 12px;
+  }
+
+  .profile-avatar {
+    width: 96px;
+    height: 96px;
+  }
+}
+
+/* Make image previews responsive and prevent overflow */
+.preview-content img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+.preview-content {
+  overflow-x: auto;
+}
+
+/* Normalize appearance across browsers where -webkit-appearance is used */
+input,
+button,
+select,
+textarea {
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .avatar-upload-overlay {
@@ -2761,7 +4777,9 @@ select {
 
 .profile-info {
   flex: 1;
-  color: white;
+  color: var(
+    --text
+  ); /* use main text color (dark) so profile heading is readable */
   margin-bottom: 8px;
 }
 
@@ -2897,11 +4915,10 @@ select {
 }
 
 .form-label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: var(--text);
-  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 6;
 }
 
 .form-input {
@@ -2918,7 +4935,17 @@ select {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
-
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 24px;
+  color: var(--text);
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--border);
+}
 .avatar-upload-section {
   display: flex;
   align-items: center;
@@ -3009,6 +5036,7 @@ select {
   display: flex;
   gap: 12px;
   justify-content: flex-end;
+  align-items: center; /* ensure buttons sit on same baseline */
 }
 
 .btn {
@@ -3038,399 +5066,13 @@ select {
   background: white;
   color: var(--text);
   border: 2px solid var(--border);
+  display: inline-flex;
+  align-items: center;
+  height: 44px;
 }
 
 .btn-secondary:hover:not(:disabled) {
   border-color: var(--muted);
-}
-
-.btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none !important;
-}
-
-.loading-spinner {
-  width: 16px;
-  height: 16px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-top: 2px solid white;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .profile-container {
-    padding: 0 16px;
-  }
-
-  .profile-hero-content {
-    padding: 0 20px 24px;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 16px;
-  }
-
-  .profile-name {
-    font-size: 24px;
-  }
-
-  .profile-stats {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-
-  .edit-content {
-    padding: 24px 20px;
-  }
-
-  .edit-actions {
-    padding: 20px;
-    flex-direction: column;
-  }
-
-  .avatar-upload-section {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
-/* ===== PROFILE PAGE LAYOUT ===== */
-.profile-container {
-  display: grid;
-  grid-template-columns: 1fr 800px;
-  min-height: calc(100vh - 120px);
-  margin: 48px auto 0;
-  max-width: 1400px;
-  gap: 0;
-}
-
-/* Green Background Brand Content */
-.profile-sidebar-left {
-  background-color: #047857;
-  flex: 1; /* sẽ tự giãn hết chiều cao của cha */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  text-align: center;
-  padding: 40px;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Profile Form - Fixed width, positioned right */
-.profile-content {
-  width: 800px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  padding: 40px 0 40px 40px;
-  background: white;
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
-}
-
-.profile-card {
-  position: relative;
-  z-index: 2;
-  background: white;
-  border-radius: 24px;
-  border: 1px solid var(--border);
-  overflow: hidden;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-.profile-header {
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-  padding: 32px;
-  border-bottom: 1px solid var(--border);
-}
-
-.profile-avatar-section {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-
-.profile-avatar-wrapper {
-  position: relative;
-  flex-shrink: 0;
-}
-
-.profile-avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 4px solid white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.profile-avatar.placeholder {
-  background: linear-gradient(135deg, var(--primary), var(--accent));
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.avatar-upload-btn {
-  position: absolute;
-  bottom: -4px;
-  right: -4px;
-  width: 32px;
-  height: 32px;
-  background: var(--primary);
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  border: 3px solid white;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.avatar-upload-btn:hover {
-  background: var(--accent);
-  transform: scale(1.1);
-}
-
-.avatar-remove-btn {
-  position: absolute;
-  top: -4px;
-  right: -4px;
-  width: 24px;
-  height: 24px;
-  background: #ef4444;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.avatar-remove-btn:hover {
-  background: #dc2626;
-  transform: scale(1.1);
-}
-
-.profile-info {
-  flex: 1;
-}
-
-.profile-title {
-  font-size: 24px;
-  font-weight: 700;
-  margin: 0 0 8px 0;
-  color: var(--text);
-}
-
-.profile-subtitle {
-  font-size: 16px;
-  color: var(--muted);
-  margin: 0 0 16px 0;
-}
-
-.profile-status {
-  display: flex;
-  gap: 12px;
-  margin-left: 45px;
-}
-
-.status-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: #dcfce7;
-  color: #166534;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.google-account-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: linear-gradient(135deg, #4285f4, #34a853);
-  color: white;
-  padding: 8px 16px;
-  border-radius: 25px;
-  font-size: 14px;
-  font-weight: 500;
-  margin-bottom: 12px;
-  box-shadow: 0 2px 8px rgba(66, 133, 244, 0.3);
-}
-
-.google-icon {
-  font-size: 16px;
-}
-
-.profile-form {
-  padding: 32px;
-}
-
-.form-section {
-  margin-bottom: 32px;
-}
-
-.section-title {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 18px;
-  font-weight: 600;
-  margin: 0 0 24px 0;
-  color: var(--text);
-  padding-bottom: 12px;
-  border-bottom: 2px solid var(--border);
-}
-
-.form-group {
-  margin-bottom: 24px;
-}
-
-.form-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 8px;
-  font-size: 14px;
-}
-
-.form-input {
-  width: 100%;
-  padding: 16px;
-  border: 2px solid var(--border);
-  border-radius: 12px;
-  font-size: 16px;
-  transition: all 0.3s ease;
-  background: white;
-}
-
-.form-input:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
-}
-
-.form-input:disabled {
-  background: #f8fafc;
-  color: var(--muted);
-  cursor: not-allowed;
-}
-
-.input-counter {
-  font-size: 12px;
-  color: var(--muted);
-  text-align: right;
-  margin-top: 4px;
-}
-
-.file-upload-area {
-  position: relative;
-  border: 2px dashed var(--border);
-  border-radius: 12px;
-  padding: 32px;
-  text-align: center;
-  transition: all 0.3s ease;
-  background: #fafbfc;
-}
-
-.file-upload-area:hover {
-  border-color: var(--primary);
-  background: rgba(16, 185, 129, 0.05);
-}
-
-.file-input {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.file-input:disabled {
-  cursor: not-allowed;
-}
-
-.file-upload-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  color: var(--muted);
-}
-
-.file-upload-content > span {
-  font-weight: 600;
-  color: var(--text);
-}
-
-.upload-hint {
-  font-size: 12px;
-  color: var(--muted);
-}
-
-.profile-actions {
-  display: flex;
-  gap: 16px;
-  padding-top: 24px;
-  border-top: 1px solid var(--border);
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 16px 24px;
-  border: none;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  min-width: 160px;
-  justify-content: center;
-}
-
-.btn-primary {
-  background: var(--primary);
-  color: white;
-}
-
-.btn-primary:hover:not(:disabled) {
-  background: var(--accent);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3);
-}
-
-.btn-secondary {
-  background: #f1f5f9;
-  color: var(--text);
-  border: 1px solid var(--border);
-}
-
-.btn-secondary:hover:not(:disabled) {
-  background: #e2e8f0;
-  transform: translateY(-1px);
 }
 
 .btn:disabled {
@@ -3517,9 +5159,9 @@ select {
   }
 
   .profile-avatar-section {
-    flex-direction: column;
-    text-align: center;
-    gap: 16px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
   }
 
   .profile-form {
@@ -3537,4 +5179,614 @@ select {
   .profile-stats {
     grid-template-columns: 1fr;
   }
+}
+
+/* Mobile header fixes: pin navbar to the left, remove outer padding, shrink greeting, enlarge search a bit */
+@media (max-width: 480px) {
+  html,
+  body,
+  #root,
+  .app-shell,
+  .main-content,
+  .container {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+  }
+
+  .navbar {
+    padding-left: 6px !important; /* give just a little breathing room */
+  }
+
+  .navbar .navbar-left {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+  }
+
+  .nav-links {
+    transform: none !important;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+    overflow-x: auto !important; /* allow horizontal scroll if needed */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav-links a,
+  .nav-links .nav-item {
+    flex: 0 0 auto !important;
+  }
+}
+@media (max-width: 480px) {
+  /* kept earlier mobile overrides; no user-section overrides present */
+}
+
+/* ===== PROFILE RESET BACKUP (commented) =====
+   If you need to revert to a fully unstyled profile page, uncomment the block below.
+   (Backup kept here for safety.)
+
+   .profile-container, .profile-sidebar-left, .nprofile-content, .profile-card { all: unset !important; }
+*/
+
+/* ===== PROFILE PAGE STYLES (desktop-first, matches provided reference) ===== */
+@media (min-width: 1024px) {
+  .profile-container {
+    max-width: 1200px;
+    margin: 32px auto;
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    gap: 36px;
+    align-items: start;
+  }
+
+  .profile-sidebar-left {
+    background-color: rgb(4, 120, 87);
+    color: #fff;
+    padding: 64px 36px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 640px;
+    box-shadow: 0 8px 30px rgba(4, 120, 87, 0.06) inset;
+  }
+
+  .profile-sidebar-left .person-avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    border: 3px solid rgba(255, 255, 255, 0.14);
+  }
+
+  .profile-sidebar-left h2 {
+    margin: 8px 0 6px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  .profile-sidebar-left p {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.5;
+    max-width: 260px;
+    text-align: center;
+    margin-bottom: 22px;
+  }
+
+  .profile-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 18px 48px rgba(9, 30, 63, 0.06);
+    border: 1px solid rgba(9, 30, 63, 0.04);
+  }
+
+  .profile-hero {
+    background: linear-gradient(180deg, #e6f0fb 0%, #d6e9fb 50%, #cfe8fb 100%);
+    border-radius: 12px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .profile-hero .profile-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    box-shadow: 0 12px 30px rgba(9, 30, 63, 0.12);
+    object-fit: cover;
+    background: #fff;
+  }
+
+  .profile-hero .avatar-wrap {
+    position: relative;
+  }
+
+  /* avatar remove button removed per design decision */
+
+  .profile-hero .hero-info {
+    text-align: left;
+  }
+
+  .profile-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+  }
+  .profile-status {
+    display: flex;
+    gap: 12px;
+    margin-left: 45px;
+  }
+  .profile-form {
+    padding: 18px 0;
+  }
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #dcfce7;
+    color: #166534;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .file-upload-area {
+    border-radius: 10px;
+    /* keep padding on the outer box so the dashed border grows horizontally */
+    padding: 48px 96px; /* vertical 48px, horizontal 96px to make box noticeably wider */
+    border: 2px dashed rgba(148, 163, 184, 0.45); /* soft gray dashed */
+    background: #fafbfc; /* light gray base */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 160px;
+    width: 100%; /* allow it to expand to available container width */
+    max-width: 920px; /* cap so it doesn't overflow very large screens */
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+  }
+
+  /* on small screens keep it comfortable */
+  @media (max-width: 900px) {
+    .file-upload-area {
+      padding: 28px 20px;
+      min-height: 120px;
+      max-width: 100%;
+    }
+  }
+
+  /* hover/focus highlight to match green dashed border effect */
+  .file-upload-area:hover,
+  .file-upload-area:focus-within {
+    cursor: pointer;
+    border-color: var(--primary);
+    box-shadow: 0 8px 28px rgba(16, 185, 129, 0.08);
+    background: linear-gradient(
+      180deg,
+      rgba(16, 185, 129, 0.02),
+      rgba(16, 185, 129, 0.01)
+    );
+    transform: translateY(-2px);
+    transition: all 180ms ease-in-out;
+  }
+
+  .file-upload-area:active {
+    transform: translateY(0);
+  }
+
+  /* make native file input cover the whole area (so native click works), but keep it invisible */
+  .file-upload-area {
+    position: relative;
+  }
+
+  .file-upload-area .file-input {
+    position: absolute;
+    inset: 0; /* top:0; right:0; bottom:0; left:0 */
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer; /* show pointer over the area */
+    z-index: 1; /* keep input available but let click-area handle mouse events */
+    pointer-events: none; /* let the click-area receive mouse events and call input.click() */
+  }
+
+  /* make the whole upload box clickable: cover the area with the click target */
+  .file-upload-area .file-upload-click-area {
+    position: absolute;
+    inset: 0; /* top:0; right:0; bottom:0; left:0 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2; /* sits above the background but below other overlays */
+    cursor: pointer;
+    pointer-events: auto; /* allow click and keyboard handlers to work */
+    background: transparent;
+    box-sizing: border-box;
+    padding: 0; /* inner padding removed because outer box provides spacing */
+  }
+
+  /* visually hide the native file input but keep it available for programmatic clicks */
+  .file-upload-area .file-input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    pointer-events: none; /* we trigger it from JS to avoid accidental focus */
+  }
+
+  .file-upload-content {
+    text-align: center;
+    color: rgba(15, 30, 40, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .file-upload-content svg {
+    font-size: 28px;
+    color: rgba(15, 30, 40, 0.45);
+  }
+
+  .file-upload-content small {
+    color: rgba(15, 30, 40, 0.55);
+    font-size: 12px;
+  }
+
+  .profile-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 18px;
+  }
+
+  .btn-primary.save-btn {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #fff;
+  }
+  .btn-secondary.cancel-btn {
+    background: #fff;
+    border: 1px solid rgba(9, 30, 63, 0.06);
+  }
+
+  .profile-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 22px;
+  }
+  .profile-stats .stat-item {
+    background: #fff;
+    padding: 18px;
+    border-radius: 10px;
+    box-shadow: 0 8px 30px rgba(9, 30, 63, 0.04);
+  }
+}
+
+/* Desktop: make avatar green with white icon and subtle ring/shadow (matches provided image) */
+@media (min-width: 1024px) {
+  .profile-sidebar-left .person-avatar,
+  .profile-hero .profile-avatar,
+  .profile-hero .avatar-wrap .profile-avatar,
+  .profile-avatar {
+    /* removed green fill and thick ring per request; keep neutral/avatar-first styling */
+    background: transparent !important;
+    color: inherit !important;
+    border: 4px solid #ffffff !important; /* modest white ring to match overall UI */
+    border-radius: 50% !important;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15) !important;
+    /* let the image itself determine centering/size */
+    display: block !important;
+    padding: 0 !important;
+  }
+
+  /* Do not force SVG to white — allow icons/images to render naturally */
+  .profile-sidebar-left .person-avatar svg,
+  .profile-hero .profile-avatar svg,
+  .profile-avatar svg {
+    fill: currentColor !important;
+    stroke: none !important;
+    color: inherit !important;
+    stroke-width: initial !important;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* reset lift so avatar sits inline with layout */
+  .profile-hero .profile-avatar {
+    transform: translateY(0);
+  }
+}
+
+/* Mobile: collapse to single column, keep simple */
+@media (max-width: 1023px) {
+  .profile-container {
+    grid-template-columns: 1fr;
+    padding: 0 16px;
+  }
+  .profile-sidebar-left {
+    display: none;
+  }
+  .profile-card {
+    padding: 16px;
+    box-shadow: none;
+    border-radius: 8px;
+  }
+}
+
+/* Improve profile responsiveness for phones/tablets */
+@media (max-width: 768px) {
+  .profile-container {
+    grid-template-columns: 1fr;
+    padding: 0 10px;
+    margin: 12px auto 0;
+    gap: 14px;
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+
+  .profile-content {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0;
+  }
+
+  .profile-card {
+    padding: 12px;
+    border-radius: 10px;
+    box-shadow: none;
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .profile-avatar-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .profile-avatar-wrapper {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .profile-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+    margin: 0 auto;
+  }
+
+  /* Scoped mobile override: make profile header/avatar smaller and responsive without affecting other avatars */
+  .profile-header .profile-avatar,
+  .profile-hero .profile-avatar,
+  .profile-avatar-wrapper .profile-avatar {
+    width: 56px !important;
+    height: 56px !important;
+    max-width: 56px !important;
+    max-height: 56px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    margin: 0 auto !important;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08) !important;
+    border: 3px solid #fff !important;
+  }
+
+  .profile-hero-content {
+    margin-top: -34px;
+    padding: 0 6px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .profile-info {
+    text-align: center;
+  }
+
+  .file-upload-area {
+    padding: 12px 10px;
+    min-height: 80px;
+    max-width: 100%;
+    box-sizing: border-box;
+    border: 2px dashed rgba(148, 163, 184, 0.45); /* restore dashed border on mobile */
+    background: #fafbfc; /* keep light base so dashed border shows */
+  }
+
+  .file-upload-content {
+    gap: 6px;
+  }
+
+  .form-group {
+    margin-bottom: 14px;
+  }
+
+  .profile-actions {
+    display: flex;
+    flex-direction: row; /* keep buttons inline on narrow screens */
+    flex-wrap: nowrap; /* avoid wrapping to next line */
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  /* reduce button padding so they fit on one line on phones */
+  .btn-primary.save-btn,
+  .btn-secondary.cancel-btn {
+    padding: 10px 14px;
+    font-size: 14px;
+    border-radius: 10px;
+  }
+
+  .btn {
+    min-width: 0; /* allow buttons to shrink */
+    white-space: nowrap; /* prevent internal wrapping */
+  }
+
+  /* Ensure the upload area retains the hover/highlight affordance on touch devices
+     by duplicating the hover/focus styles for active and focus-within states. */
+  .file-upload-area:hover,
+  .file-upload-area:focus-within,
+  .file-upload-area:active {
+    border: 2px dashed #10b981 !important; /* force green dashed border on hover */
+    box-shadow: 0 8px 28px rgba(16, 185, 129, 0.12);
+    background: linear-gradient(
+      180deg,
+      rgba(16, 185, 129, 0.02),
+      rgba(16, 185, 129, 0.01)
+    );
+    transform: translateY(-2px);
+    transition: border-color 180ms ease-in-out, box-shadow 180ms ease-in-out,
+      transform 180ms ease-in-out;
+  }
+
+  .profile-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .stat-number {
+    font-size: 18px;
+  }
+
+  /* extra small screens: fit tighter */
+  @media (max-width: 420px) {
+    .profile-container {
+      padding: 0 8px;
+    }
+    .profile-card {
+      padding: 10px;
+      border-radius: 8px;
+    }
+    .profile-avatar {
+      width: 60px;
+      height: 60px;
+    }
+    .profile-hero-content {
+      margin-top: -28px;
+    }
+    .profile-stats {
+      gap: 6px;
+    }
+  }
+
+  /* also slightly tighten action buttons on very small screens */
+  @media (max-width: 420px) {
+    .btn-primary.save-btn,
+    .btn-secondary.cancel-btn {
+      padding: 8px 12px;
+      font-size: 13px;
+    }
+
+    .profile-actions {
+      gap: 8px;
+    }
+  }
+
+  /* Tighten upload box for very small screens so it doesn't overflow or break layout */
+  @media (max-width: 420px) {
+    .file-upload-area {
+      padding: 4px 6px; /* tighter padding */
+      min-height: 40px; /* reduce vertical height */
+      border-radius: 8px;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    /* shrink icon/text inside the upload area so it fits compactly */
+    .file-upload-content svg {
+      font-size: 12px; /* smaller camera icon */
+      width: 18px;
+      height: 18px;
+      color: rgba(15, 30, 40, 0.35);
+    }
+
+    .file-upload-content small {
+      font-size: 9px;
+      line-height: 1.05;
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* place icon and label on a single row with spacing so they don't touch */
+    .file-upload-content {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-align: left; /* ensure icon left of text */
+      padding: 0 6px;
+    }
+
+    .file-upload-content small {
+      display: inline-block;
+      margin: 0; /* remove top margin when inline */
+    }
+
+    /* make sure the native file input is invisible (no button+filename) but still usable programmatically
+     keep it positioned over the area and fully transparent to prevent the browser's default UI showing */
+    .file-upload-area .file-input {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      z-index: 3; /* above click-area so clicks open native picker reliably */
+      pointer-events: auto;
+      background: transparent;
+      -webkit-appearance: none;
+    }
+
+    /* leave the click-area present for keyboard handlers but keep it beneath the invisible input */
+    .file-upload-area .file-upload-click-area {
+      z-index: 2;
+    }
+  }
+}
+
+/* Google badge for accounts connected via Google */
+.google-account-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #4285f4, #34a853);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px #4285f44d;
 }

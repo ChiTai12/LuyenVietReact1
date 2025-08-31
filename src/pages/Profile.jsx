@@ -17,7 +17,7 @@ import {
 } from "react-icons/fi";
 
 export default function Profile() {
-  const { currentUser, updateUser } = useApp();
+  const { currentUser, updateUser, posts, favorites } = useApp();
   const { notify } = useToast();
   const [name, setName] = useState(currentUser.name || "");
   const [avatarUrl, setAvatarUrl] = useState(currentUser.avatarUrl || "");
@@ -43,8 +43,15 @@ export default function Profile() {
     const reader = new FileReader();
     reader.onload = () => {
       console.log("File loaded, setting preview");
-      setPreviewUrl(String(reader.result));
-      setAvatarUrl(String(reader.result));
+      const dataUrl = String(reader.result);
+      setPreviewUrl(dataUrl);
+      setAvatarUrl(dataUrl);
+      // auto-save avatar to currentUser so it persists immediately
+      try {
+        updateUser({ avatarUrl: dataUrl });
+      } catch (err) {
+        console.error("Failed to update user avatar:", err);
+      }
     };
     reader.readAsDataURL(file);
   }
@@ -92,12 +99,6 @@ export default function Profile() {
     setAvatarUrl(currentUser.avatarUrl || "");
     setPreviewUrl("");
     setIsEditing(false);
-    if (fileInputRef.current) fileInputRef.current.value = "";
-  }
-
-  function handleRemoveAvatar() {
-    setAvatarUrl("");
-    setPreviewUrl("");
     if (fileInputRef.current) fileInputRef.current.value = "";
   }
 
@@ -197,28 +198,23 @@ export default function Profile() {
           <div className="profile-header">
             <div className="profile-avatar-section">
               <div className="profile-avatar-wrapper">
-                {previewUrl || avatarUrl ? (
-                  <img
-                    className="profile-avatar"
-                    src={previewUrl || avatarUrl}
-                    alt={name}
-                  />
-                ) : (
-                  <div className="profile-avatar placeholder">
-                    <FiUser size={48} />
-                  </div>
-                )}
+                <img
+                  className="profile-avatar"
+                  src={previewUrl || avatarUrl || "/read_img.webp"}
+                  alt={name}
+                  onError={(e) => {
+                    // fallback to placeholder if image fails to load
+                    e.currentTarget.style.display = "none";
+                    const p = document.createElement("div");
+                    p.className = "profile-avatar placeholder";
+                    p.innerHTML = `<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'></path><circle cx='12' cy='7' r='4'></circle></svg>`;
+                    e.currentTarget.parentNode &&
+                      e.currentTarget.parentNode.appendChild(p);
+                  }}
+                />
                 {isEditing && (
                   <>
-                    {(previewUrl || avatarUrl) && (
-                      <button
-                        className="avatar-remove-btn"
-                        onClick={handleRemoveAvatar}
-                        type="button"
-                      >
-                        <FiX size={16} />
-                      </button>
-                    )}
+                    {/* Avatar can be updated via the upload area; explicit remove button removed */}
                   </>
                 )}
               </div>
@@ -275,7 +271,7 @@ export default function Profile() {
               <div className="form-group">
                 <label className="form-label">
                   <FiCamera size={16} />
-                  Ảnh đại diện
+                  <span className="visually-hidden">Ảnh đại diện</span>
                 </label>
                 <div className="file-upload-area">
                   <input
@@ -286,12 +282,30 @@ export default function Profile() {
                     className="file-input"
                     disabled={!isEditing}
                   />
-                  <div className="file-upload-content">
-                    <FiCamera size={32} />
-                    <span>Chọn ảnh đại diện</span>
-                    <small>JPG, PNG hoặc GIF (tối đa 5MB)</small>
-                    <div className="upload-hint">
-                      Kéo thả ảnh vào đây hoặc click để chọn
+                  {/* make the whole area clickable to open file picker */}
+                  <div
+                    role="button"
+                    tabIndex={0}
+                    className="file-upload-click-area"
+                    onClick={() => {
+                      if (!isEditing) return;
+                      if (fileInputRef.current) fileInputRef.current.click();
+                    }}
+                    onKeyDown={(e) => {
+                      if (!isEditing) return;
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        if (fileInputRef.current) fileInputRef.current.click();
+                      }
+                    }}
+                  >
+                    <div className="file-upload-content">
+                      <FiCamera size={32} />
+                      <span>Chọn ảnh đại diện</span>
+                      <small>JPG, PNG hoặc GIF (tối đa 5MB)</small>
+                      <div className="upload-hint">
+                        Kéo thả ảnh vào đây hoặc click để chọn
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -348,21 +362,36 @@ export default function Profile() {
               <div className="stat-icon">
                 <FiUser size={24} />
               </div>
-              <div className="stat-number">0</div>
+              <div className="stat-number">
+                {currentUser.postsCount ??
+                  posts.filter((p) => p.author?.id === currentUser.id).length}
+              </div>
               <div className="stat-label">Bài viết</div>
             </div>
             <div className="stat-item">
               <div className="stat-icon">
                 <FiCamera size={24} />
               </div>
-              <div className="stat-number">0</div>
+              <div className="stat-number">
+                {currentUser.commentsCount ??
+                  posts.reduce(
+                    (acc, p) =>
+                      acc +
+                      (p.comments || []).filter(
+                        (c) => c.author?.id === currentUser.id
+                      ).length,
+                    0
+                  )}
+              </div>
               <div className="stat-label">Bình luận</div>
             </div>
             <div className="stat-item">
               <div className="stat-icon">
                 <FiCheck size={24} />
               </div>
-              <div className="stat-number">0</div>
+              <div className="stat-number">
+                {currentUser.favoritesCount ?? (favorites ? favorites.size : 0)}
+              </div>
               <div className="stat-label">Yêu thích</div>
             </div>
           </div>
