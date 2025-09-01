@@ -1,4 +1,11 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  useCallback,
+} from "react";
 import { readJSON, writeJSON, cleanupLocalStorage } from "../utils/storage";
 
 const AppContext = createContext(null);
@@ -198,51 +205,89 @@ export function AppProvider({ children }) {
   }, [favoriteExternalItems]);
 
   // Auth functions
-  function login(username, password, googleUser = null) {
-    if (googleUser) {
-      setCurrentUser(googleUser);
-      setIsAuthenticated(true);
-      return true;
-    }
+  const login = useCallback(
+    (username, password, googleUser = null) => {
+      if (googleUser) {
+        // Check current users synchronously to prefer existing avatar
+        const existingByEmail = users.find((u) => u.email === googleUser.email);
+        const existingById = users.find(
+          (u) => String(u.id) === String(googleUser.id)
+        );
+        const existing = existingByEmail || existingById || null;
 
-    const user = users.find(
-      (u) => u.username === username && u.password === password
-    );
-    if (user) {
+        const merged = existing
+          ? {
+              ...existing,
+              ...googleUser,
+              avatarUrl: existing.avatarUrl || googleUser.avatarUrl,
+              isGoogleUser: true,
+            }
+          : { ...googleUser };
+
+        setUsers((prev) => {
+          if (existing) {
+            return prev.map((u) =>
+              String(u.id) === String(merged.id) || u.email === merged.email
+                ? merged
+                : u
+            );
+          }
+          return [...prev, merged];
+        });
+
+        setCurrentUser({
+          id: merged.id,
+          name: merged.name,
+          avatarUrl: merged.avatarUrl,
+          isGoogleUser: true,
+        });
+        setIsAuthenticated(true);
+        return true;
+      }
+
+      const user = users.find(
+        (u) => u.username === username && u.password === password
+      );
+      if (user) {
+        setCurrentUser({
+          id: user.id,
+          name: user.name,
+          avatarUrl: user.avatarUrl,
+        });
+        setIsAuthenticated(true);
+        return true;
+      }
+      return false;
+    },
+    [users]
+  );
+
+  const register = useCallback(
+    (username, email, password) => {
+      if (users.find((u) => u.username === username)) {
+        return false;
+      }
+
+      const newUser = {
+        id: Date.now().toString(),
+        username,
+        email,
+        password,
+        name: username,
+        avatarUrl: "",
+      };
+
+      setUsers((prev) => [...prev, newUser]);
       setCurrentUser({
-        id: user.id,
-        name: user.name,
-        avatarUrl: user.avatarUrl,
+        id: newUser.id,
+        name: newUser.name,
+        avatarUrl: newUser.avatarUrl,
       });
       setIsAuthenticated(true);
       return true;
-    }
-    return false;
-  }
-
-  function register(username, email, password) {
-    if (users.find((u) => u.username === username)) {
-      return false;
-    }
-
-    const newUser = {
-      id: Date.now().toString(),
-      username,
-      email,
-      password,
-      name: username,
-      avatarUrl: "",
-    };
-
-    setUsers((prev) => [...prev, newUser]);
-    setCurrentUser({
-      id: newUser.id,
-      name: newUser.name,
-      avatarUrl: newUser.avatarUrl,
-    });
-    setIsAuthenticated(true);
-    return true;
-  }
+    },
+    [users]
+  );
 
   function logout() {
     setCurrentUser({ id: "guest", name: "Khách" });
@@ -265,27 +310,30 @@ export function AppProvider({ children }) {
           return { ...prev, postsCount };
         }
         return prev;
-      } catch (e) {
+      } catch {
         return prev;
       }
     });
   }
 
-  function toggleFavorite(postId) {
-    // Read current presence synchronously and update states separately
-    const wasPresent = favorites.has(postId);
-    setFavorites((prev) => {
-      const next = new Set(prev);
-      wasPresent ? next.delete(postId) : next.add(postId);
-      return next;
-    });
-    // update currentUser favoritesCount (do not call setState inside another updater)
-    setCurrentUser((cu) => {
-      if (!cu) return cu;
-      const favoritesCount = (cu.favoritesCount || 0) + (wasPresent ? -1 : 1);
-      return { ...cu, favoritesCount };
-    });
-  }
+  const toggleFavorite = useCallback(
+    (postId) => {
+      // Read current presence synchronously and update states separately
+      const wasPresent = favorites.has(postId);
+      setFavorites((prev) => {
+        const next = new Set(prev);
+        wasPresent ? next.delete(postId) : next.add(postId);
+        return next;
+      });
+      // update currentUser favoritesCount (do not call setState inside another updater)
+      setCurrentUser((cu) => {
+        if (!cu) return cu;
+        const favoritesCount = (cu.favoritesCount || 0) + (wasPresent ? -1 : 1);
+        return { ...cu, favoritesCount };
+      });
+    },
+    [favorites]
+  );
 
   function toggleFavoriteExternal(item) {
     setFavorites((prev) => {
@@ -305,10 +353,14 @@ export function AppProvider({ children }) {
   }
 
   function addComment(postId, comment) {
+    const ensureId = (c) =>
+      c && c.id
+        ? c
+        : { ...c, id: `${postId}_${Date.now()}_${Math.random().toString(36).slice(2,7)}` };
     setPosts((prev) =>
       prev.map((p) =>
         p.id === postId
-          ? { ...p, comments: [...(p.comments || []), comment] }
+          ? { ...p, comments: [...(p.comments || []), ensureId(comment)] }
           : p
       )
     );
@@ -322,20 +374,71 @@ export function AppProvider({ children }) {
           return { ...prev, commentsCount };
         }
         return prev;
-      } catch (e) {
+      } catch {
         return prev;
       }
     });
   }
 
+  // (was) Update a post fields — removed because UI no longer allows inline edits here
+
   function updateUser(updates) {
-    setCurrentUser((prev) => ({ ...prev, ...updates }));
+    // Update both the currentUser state and the users collection so
+    // components that read from `users` (e.g. comment rendering) see
+    // the latest profile changes immediately.
+    setCurrentUser((prev) => {
+      const next = { ...prev, ...updates };
+      // Also patch the users array if the user exists there
+      setUsers((prevUsers) =>
+        prevUsers.map((u) =>
+          String(u.id) === String(next.id) ? { ...u, ...updates } : u
+        )
+      );
+      // Also update any posts/comments that stored the old author snapshot
+      setPosts((prevPosts) =>
+        prevPosts.map((p) => {
+          let changed = false;
+          const newPost = { ...p };
+          if (newPost.author && String(newPost.author.id) === String(next.id)) {
+            newPost.author = { ...newPost.author, ...updates };
+            changed = true;
+          }
+          if (Array.isArray(newPost.comments) && newPost.comments.length) {
+            const newComments = newPost.comments.map((c) =>
+              c?.author && String(c.author.id) === String(next.id)
+                ? { ...c, author: { ...c.author, ...updates } }
+                : c
+            );
+            // only replace if changed to avoid unnecessary updates
+            if (
+              JSON.stringify(newComments) !== JSON.stringify(newPost.comments)
+            ) {
+              newPost.comments = newComments;
+              changed = true;
+            }
+          }
+          return changed ? newPost : p;
+        })
+      );
+      return next;
+    });
   }
 
   function clearAllData() {
-    localStorage.removeItem("posts");
-    localStorage.removeItem("favorites");
-    localStorage.removeItem("favorite_external_items");
+    try {
+      // Persist empty collections so the app won't reload seeded default posts
+      writeJSON("posts", []);
+      writeJSON("favorites", []);
+      writeJSON("favorite_external_items", {});
+      // Also reset auth to guest
+      writeJSON("current_user", { id: "guest", name: "Khách" });
+    } catch {
+      console.error("Lỗi khi xóa dữ liệu ứng dụng");
+      // fallback to removing keys
+      localStorage.removeItem("posts");
+      localStorage.removeItem("favorites");
+      localStorage.removeItem("favorite_external_items");
+    }
     window.location.reload();
   }
 
@@ -353,6 +456,7 @@ export function AppProvider({ children }) {
       posts,
       addPost,
       addComment,
+      users,
       categories: ["Công nghệ", "Kinh doanh", "Thể thao", "Giải trí"],
       favorites,
       toggleFavorite,
@@ -367,6 +471,7 @@ export function AppProvider({ children }) {
     [
       currentUser,
       isAuthenticated,
+      users,
       posts,
       favorites,
       favoriteExternalItems,
@@ -374,6 +479,7 @@ export function AppProvider({ children }) {
       selectedCategory,
       login,
       register,
+      toggleFavorite,
     ]
   );
 

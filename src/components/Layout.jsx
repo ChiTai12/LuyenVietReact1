@@ -115,11 +115,22 @@ export default function Layout({ children }) {
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
               <option value="Tất cả">Tất cả chuyên mục</option>
-              {categories.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
-              ))}
+              {(categories && categories.length
+                ? categories
+                : ["Công nghệ", "Kinh doanh", "Thể thao", "Giải trí"]
+              ) // source
+                .map((s) => s.trim())
+                .reduce((m, s) => {
+                  const key = s.toLowerCase();
+                  if (!m.has(key)) m.set(key, s);
+                  return m;
+                }, new Map())
+                .values()
+                .map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
             </select>
           </form>
 

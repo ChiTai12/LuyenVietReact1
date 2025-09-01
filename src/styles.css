@@ -526,8 +526,7 @@
   .navbar .actions span {
     display: none;
   }
-  .navbar .icon,
-  .navbar .user-avatar {
+  .navbar .icon {
     width: 24px;
     height: 24px;
   }
@@ -2633,14 +2632,6 @@ select {
   box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
 }
 
-/* User avatar hover */
-.user-avatar:hover {
-  background: linear-gradient(135deg, #059669 0%, #047857 100%);
-  transform: scale(1.1);
-  box-shadow: 0 20px 40px rgba(16, 185, 129, 0.5),
-    0 8px 20px rgba(16, 185, 129, 0.3);
-}
-
 /* Phone mockup interaction enhancement */
 .phone-mockup:hover {
   box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4),
@@ -2862,21 +2853,6 @@ select {
   right: 0;
   height: 4px;
   border-radius: 30px 30px 0 0;
-}
-
-.user-avatar {
-  width: 80px;
-  height: 80px;
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  margin: 0 auto 20px;
-  box-shadow: 0 20px 40px rgba(16, 185, 129, 0.3),
-    0 8px 16px rgba(16, 185, 129, 0.2);
-  transition: all 0.3s ease;
 }
 
 .welcome-title {
@@ -3521,6 +3497,86 @@ select {
     display: block !important;
   }
 
+  /* Ensure post images keep their aspect ratio and do not get stretched to fill
+     a container with mismatched dimensions. Use object-fit to control cropping
+     and cap heights so very tall images don't distort layout. */
+  .post-image,
+  .post-image img,
+  .post-thumbnail {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    object-fit: cover; /* crop to fill while keeping aspect ratio */
+  }
+
+  /* When you want the full image visible (no crop) use object-fit: contain on preview
+     content specifically — keep cover for post cards for consistent card layout. */
+  .preview-content img,
+  .preview img {
+    object-fit: contain !important;
+    max-height: 520px; /* cap very tall previews to avoid pushing footer */
+  }
+
+  /* ===== Standardized post image styles ===== */
+
+  /* Card thumbnails: use responsive 16:9 aspect ratio so all thumbnails
+     (uploaded or predefined) render consistently like the reference sample. */
+  .post-card .post-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    margin-bottom: 16px;
+    width: 100%;
+    /* 16:9 ratio */
+    padding-top: calc(9 / 16 * 100%); /* creates the aspect box */
+    background: var(--panel);
+  }
+
+  .post-card .post-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Compact cards (sidebar) use smaller aspect ratio box */
+  .post-card--compact .post-image {
+    padding-top: calc(
+      56.25% * 0.25
+    ); /* smaller visual area (~16:9 scaled down) */
+    border-radius: 8px;
+    box-shadow: none;
+  }
+
+  /* Detail page hero image: full-width, rounded and slightly taller but not stretched */
+  .detail-thumb {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    display: block;
+    margin: 18px 0 26px 0;
+    box-shadow: 0 12px 40px rgba(14, 30, 37, 0.08);
+    object-fit: cover;
+    max-height: 520px; /* cap to avoid pushing layout on very tall images */
+  }
+
+  /* Ensure images inside the main content never overflow their container */
+  .post-detail .post-content img,
+  .post-detail .post-content iframe {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block;
+    border-radius: 12px;
+    box-shadow: 0 12px 40px rgba(14, 30, 37, 0.06);
+    object-fit: cover;
+  }
+
   /* Nudge the blue preview area inward slightly so it's not flush to the right edge */
   .preview-content {
     padding-left: 18px !important;
@@ -3726,6 +3782,16 @@ select {
   line-height: 1.8;
   color: var(--text);
   max-width: none;
+  /* Prevent long unbroken text from overflowing the layout */
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* Comment bubble and text overflow protection */
+.comment .bubble {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 /* Sidebar Styles */
@@ -3851,10 +3917,21 @@ select {
 }
 
 .comment .avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
+  width: 40px !important;
+  height: 40px !important;
+  min-width: 40px !important;
+  min-height: 40px !important;
+  border-radius: 50% !important;
+  overflow: hidden !important;
+  display: block !important;
+}
+
+.comment .avatar img {
+  width: 40px !important;
+  height: 40px !important;
+  object-fit: cover !important;
+  display: block !important;
+  border-radius: 50% !important;
 }
 
 .comment .avatar.placeholder {
@@ -4057,6 +4134,39 @@ select {
     gap: 8px;
     margin: 0; /* horizontal layout uses gap for spacing */
     white-space: nowrap !important;
+  }
+
+  /* Force comment layout on mobile to match desktop (avatar + content row) */
+  .comment-list {
+    display: block !important;
+    gap: 12px !important;
+  }
+
+  .comment {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 12px !important;
+    align-items: flex-start !important;
+    padding: 12px !important;
+  }
+
+  .comment .avatar {
+    width: 40px !important;
+    height: 40px !important;
+    flex: 0 0 40px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+  }
+
+  .comment .bubble {
+    flex: 1 !important;
+  }
+
+  .comment .meta {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-bottom: 8px !important;
   }
 
   /* specifically ensure the refresh button's inner content is centered */
@@ -4556,12 +4666,12 @@ select {
 }
 
 .profile-hero-content {
-  padding: 0 32px 32px;
+  padding: 0 32px 12px; /* reduce bottom padding so avatar sits closer to content */
   position: relative;
   margin-top: -60px;
   display: flex;
-  align-items: flex-end;
-  gap: 24px;
+  align-items: center; /* center align to reduce vertical gap */
+  gap: 16px;
 }
 
 /* Desktop-only: make profile visually match reference screenshot */
@@ -4625,11 +4735,12 @@ select {
   }
 
   .profile-hero-content {
-    margin-top: -42px;
+    margin-top: -52px; /* pull content slightly further up to match reference */
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 18px;
+    gap: 12px;
+    padding-bottom: 8px; /* tighten bottom spacing on desktop */
   }
 
   /* push avatar to the right on desktop so it matches the reference layout */
@@ -4707,6 +4818,99 @@ select {
   align-items: center;
   justify-content: center;
   color: var(--muted);
+}
+
+/* Ensure any img placed inside the profile avatar fills the circle and keeps the rounded border */
+.profile-avatar-wrapper .profile-avatar img,
+.profile-avatar-wrapper .profile-avatar > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: inherit;
+}
+
+/* Prevent avatar wrappers from being non-square and force correct cropping */
+.profile-avatar,
+.profile-avatar-wrapper,
+.post-card .author-avatar,
+.comment .avatar,
+.person-avatar {
+  /* removed aspect-ratio to preserve legacy layout and to allow devtools
+     toggles to persist. Use explicit width/height rules elsewhere. */
+  /* aspect-ratio: 1 / 1; */
+  overflow: hidden; /* clip any overflow so images don't stretch out of circle */
+  box-sizing: border-box;
+}
+
+.profile-avatar img,
+.post-card .author-avatar img,
+.comment .avatar img,
+.person-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Shared responsive avatar sizing -------------------------------------------------
+   Use CSS variables so changing avatar size in one place updates profile, posts and
+   comments consistently. This block only affects sizing and image fitting.
+*/
+:root {
+  --avatar-size-small: 28px; /* author/comment avatars */
+  --avatar-size-medium: 56px; /* profile small (tablet) */
+  --avatar-size-large: 120px; /* profile large (desktop) */
+  --avatar-border: 3px;
+}
+
+/* apply shared sizing to common avatar wrappers
+  NOTE: do not override desktop defaults globally here — keep sizing
+  adjustments scoped to media queries so desktop layout is preserved.
+*/
+
+/* profile / hero avatars use the larger variable by default */
+.profile-avatar,
+.profile-avatar-wrapper .profile-avatar,
+.person-avatar {
+  width: var(--avatar-size-large);
+  height: var(--avatar-size-large);
+  border-radius: 50%;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  border: 4px solid #fff;
+  object-fit: cover;
+}
+
+/* make sure images inside any avatar follow the container size */
+.post-card .author-avatar img,
+.comment .avatar img,
+.profile-avatar img,
+.person-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: inherit;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1023px) {
+  .profile-avatar,
+  .profile-avatar-wrapper .profile-avatar,
+  .person-avatar {
+    width: var(--avatar-size-medium);
+    height: var(--avatar-size-medium);
+  }
+}
+
+@media (max-width: 480px) {
+  .post-card .author-avatar,
+  .comment .avatar {
+    width: 28px; /* keep small author/comment avatars on mobile */
+    height: 28px;
+    max-width: 28px;
+    max-height: 28px;
+  }
 }
 
 /* Small-screen fixes: reduce enforced min-heights and hero height to avoid layout overflow */
@@ -5597,12 +5801,12 @@ textarea {
   }
 
   .profile-hero-content {
-    margin-top: -34px;
-    padding: 0 6px 12px;
+    margin-top: -24px; /* slightly reduce overlap on small screens */
+    padding: 0 6px 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
   }
 
   .profile-info {

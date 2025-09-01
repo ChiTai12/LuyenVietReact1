@@ -1,32 +1,32 @@
-import { createContext, useCallback, useContext, useMemo, useState } from 'react'
+/* eslint-disable react-refresh/only-export-components */
+import { createContext, useCallback, useMemo, useState } from "react";
 
-const ToastContext = createContext(null)
+export const ToastContext = createContext(null);
 
-let nextId = 1
+let nextId = 1;
 
 export function ToastProvider({ children }) {
-  const [toasts, setToasts] = useState([])
+  const [toasts, setToasts] = useState([]);
 
   const notify = useCallback((message, options = {}) => {
-    const id = nextId++
-    const toast = { id, message, type: options.type || 'info', duration: options.duration || 2200 }
-    setToasts(prev => [...prev, toast])
+    const id = nextId++;
+    const toast = {
+      id,
+      message,
+      type: options.type || "info",
+      duration: options.duration || 2200,
+    };
+    setToasts((prev) => [...prev, toast]);
     setTimeout(() => {
-      setToasts(prev => prev.filter(t => t.id !== id))
-    }, toast.duration)
-  }, [])
+      setToasts((prev) => prev.filter((t) => t.id !== id));
+    }, toast.duration);
+  }, []);
 
-  const value = useMemo(() => ({ toasts, notify }), [toasts, notify])
+  const value = useMemo(() => ({ toasts, notify }), [toasts, notify]);
 
   return (
     <ToastContext.Provider value={value}>{children}</ToastContext.Provider>
-  )
+  );
 }
 
-export function useToast() {
-  const ctx = useContext(ToastContext)
-  if (!ctx) throw new Error('useToast must be used within ToastProvider')
-  return ctx
-}
-
-
+// NOTE: useToast hook moved to `src/context/useToast.js` to satisfy fast-refresh

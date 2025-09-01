@@ -1,14 +1,29 @@
 import { useId, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useApp } from "../context/AppContext";
-import { useToast } from "../context/ToastContext";
+import { useToast } from "../context/useToast";
 
 export default function CreatePost() {
   const navigate = useNavigate();
   const { addPost, categories, currentUser } = useApp();
   const { notify } = useToast();
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState(categories[0]);
+  // dedupe categories (case-insensitive) and provide defaults
+  const defaultCats = ["Công nghệ", "Kinh doanh", "Thể thao", "Giải trí"];
+  const uniqueCategories =
+    categories && categories.length
+      ? Array.from(
+          categories
+            .map((c) => c.trim())
+            .reduce((m, s) => {
+              const key = s.toLowerCase();
+              if (!m.has(key)) m.set(key, s);
+              return m;
+            }, new Map())
+            .values()
+        )
+      : defaultCats;
+  const [category, setCategory] = useState(() => uniqueCategories[0]);
   const [content, setContent] = useState("");
   const [thumbnailUrl, setThumbnailUrl] = useState("");
   const [tags, setTags] = useState("");
@@ -24,13 +39,13 @@ export default function CreatePost() {
   const getDefaultThumbnail = (category) => {
     const defaultImages = {
       "Công nghệ":
-        "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&h=600&fit=crop&crop=center",
+        "https://www.cnet.com/a/img/resize/af85ca2d16ab1338aa1fd661ba84bfb7b6ec83b3/hub/2020/05/25/25ed6e0c-876d-4c78-8679-148efce27a01/gettyimages-1029514602.jpg?auto=webp&width=1200",
       "Kinh doanh":
         "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop&crop=center",
       "Thể thao":
-        "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&h=600&fit=crop&crop=center",
+        "https://static.vecteezy.com/system/resources/previews/020/919/578/large_2x/sports-background-international-sports-day-illustration-graphic-design-for-the-decoration-of-gift-certificates-banners-and-flyer-vector.jpg",
       "Giải trí":
-        "https://images.unsplash.com/photo-1489599511914-e83737003ea2?w=800&h=600&fit=crop&crop=center",
+        "https://jpcenter.com.vn/wp-content/uploads/2022/05/272140143_332835258695635_4043466850134397573_n.jpg",
     };
     return (
       defaultImages[category] ||
@@ -140,25 +155,6 @@ export default function CreatePost() {
           .filter((tag) => tag && tag.length >= 2)
           .slice(0, 6) // Giới hạn tối đa 6 tags
       : [];
-
-    // Đảm bảo có ảnh bìa (dùng ảnh mặc định theo category nếu không có)
-    const getDefaultThumbnail = (category) => {
-      const defaultImages = {
-        "Công nghệ":
-          "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&h=600&fit=crop&crop=center",
-        "Kinh doanh":
-          "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop&crop=center",
-        "Thể thao":
-          "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&h=600&fit=crop&crop=center",
-        "Giải trí":
-          "https://images.unsplash.com/photo-1489599511914-e83737003ea2?w=800&h=600&fit=crop&crop=center",
-      };
-      return (
-        defaultImages[category] ||
-        "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=600&fit=crop&crop=center"
-      );
-    };
-
     const finalThumbnailUrl = thumbnailUrl || getDefaultThumbnail(category);
 
     addPost({
@@ -219,7 +215,7 @@ export default function CreatePost() {
             onChange={(e) => setCategory(e.target.value)}
             required
           >
-            {categories.map((c) => (
+            {uniqueCategories.map((c) => (
               <option key={c} value={c}>
                 {c}
               </option>

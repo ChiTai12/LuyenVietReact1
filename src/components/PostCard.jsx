@@ -10,7 +10,7 @@ function truncateText(text, maxLength) {
 }
 
 export default function PostCard({ post, compact = false }) {
-  const { favorites, toggleFavorite } = useApp();
+  const { favorites, toggleFavorite, users } = useApp();
   const isFavorited = favorites.has(post.id);
 
   // Xử lý content - cắt ngắn cho hiển thị
@@ -18,6 +18,20 @@ export default function PostCard({ post, compact = false }) {
     post.content || post.excerpt,
     compact ? 60 : 100
   );
+
+  const authorFromUsers = users
+    ? users.find((u) => String(u.id) === String(post.author?.id))
+    : null;
+  const authorByName =
+    !authorFromUsers && users && post.author?.name
+      ? users.find(
+          (u) =>
+            u.name &&
+            post.author?.name &&
+            u.name.toLowerCase() === post.author.name.toLowerCase()
+        )
+      : null;
+  const author = authorFromUsers || authorByName || post.author || {};
 
   return (
     <Link
@@ -66,10 +80,10 @@ export default function PostCard({ post, compact = false }) {
 
             <div className="post-footer">
               <div className="author-info">
-                {post.author?.avatarUrl ? (
+                {author?.avatarUrl ? (
                   <img
-                    src={post.author.avatarUrl}
-                    alt={post.author.name}
+                    src={author.avatarUrl}
+                    alt={author.name}
                     className="author-avatar"
                   />
                 ) : (
@@ -77,9 +91,7 @@ export default function PostCard({ post, compact = false }) {
                     <FiUser size={12} />
                   </div>
                 )}
-                <span className="author-name">
-                  {post.author?.name || "Ẩn danh"}
-                </span>
+                <span className="author-name">{author?.name || "Ẩn danh"}</span>
               </div>
 
               <div className="post-actions">

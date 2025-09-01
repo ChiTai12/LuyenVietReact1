@@ -1,7 +1,36 @@
 import { FiClock } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { useApp } from "../context/AppContext";
 
 export default function CompactPostCard({ post }) {
+  const { users } = useApp();
+  const authorFromUsers = users
+    ? users.find((u) => String(u.id) === String(post.author?.id))
+    : null;
+  const normalize = (s) =>
+    s
+      ? s
+          .toString()
+          .normalize("NFD")
+          .replace(/\p{Diacritic}/gu, "")
+          .toLowerCase()
+          .trim()
+      : "";
+  const authorByName =
+    !authorFromUsers && users && post.author?.name
+      ? users.find((u) => {
+          const a = normalize(post.author.name);
+          const b = normalize(u.name);
+          if (!a || !b) return false;
+          return (
+            a === b ||
+            a.includes(b) ||
+            b.includes(a) ||
+            b.split(/\s+/)[0] === a.split(/\s+/)[0]
+          );
+        })
+      : null;
+  const author = authorFromUsers || authorByName || post.author || {};
   return (
     <Link
       to={`/bai-viet/${post.id}`}
@@ -49,17 +78,17 @@ export default function CompactPostCard({ post }) {
 
             {/* Author */}
             <div className="compact-author">
-              {post.author?.avatarUrl ? (
+              {author?.avatarUrl ? (
                 <img
-                  src={post.author.avatarUrl}
-                  alt={post.author.name}
+                  src={author.avatarUrl}
+                  alt={author.name}
                   className="compact-author-avatar"
                 />
               ) : (
                 <div className="compact-author-avatar placeholder"></div>
               )}
               <span className="compact-author-name">
-                {post.author?.name || "Ẩn danh"}
+                {author?.name || "Ẩn danh"}
               </span>
             </div>
           </div>

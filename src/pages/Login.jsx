@@ -1,12 +1,12 @@
 import { useState, useId, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useApp } from "../context/AppContext";
-import { useToast } from "../context/ToastContext";
+import { useToast } from "../context/useToast";
 import { FiUser, FiLock, FiMail } from "react-icons/fi";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { login, register } = useApp();
+  const { login, register, users, updateUser } = useApp();
   const { notify } = useToast();
   const [isLogin, setIsLogin] = useState(true);
   const [username, setUsername] = useState("");
@@ -88,11 +88,38 @@ export default function Login() {
         isGoogleUser: true,
       };
 
-      // Login với Google user
-      const success = await login(userObject.email, "google_auth", googleUser);
+      // Try to find an existing user by email or id to avoid overwriting a
+      // previously uploaded avatar. Prefer an existing avatar over Google's
+      // picture when present.
+      const existingByEmail = users?.find((u) => u.email === userObject.email);
+      const existingById = users?.find(
+        (u) => String(u.id) === String(userObject.sub)
+      );
+      const existing = existingByEmail || existingById || null;
+
+      const mergedUser = existing
+        ? {
+            ...existing,
+            ...googleUser,
+            // prefer existing avatar if user had uploaded one
+            avatarUrl: existing.avatarUrl || googleUser.avatarUrl,
+            isGoogleUser: true,
+          }
+        : googleUser;
+
+      // Login with merged user object so we don't clobber a custom avatar.
+      const success = await login(userObject.email, "google_auth", mergedUser);
 
       if (success) {
-        notify(`Chào mừng ${userObject.name}! Đăng nhập Google thành công! 🎉`);
+        // Persist merged info to app state (users/posts) so render-time lookups find it.
+        try {
+          updateUser(mergedUser);
+        } catch (err) {
+          // non-fatal
+          console.error("Failed to persist merged Google user:", err);
+        }
+
+        notify(`Chào mừng ${mergedUser.name}! Đăng nhập Google thành công! 🎉`);
         navigate("/");
       } else {
         notify("Đăng nhập Google thất bại", { type: "error" });
@@ -262,7 +289,7 @@ export default function Login() {
       </div>
 
       <div className="login-card">
-        <div className="user-avatar">
+        <div>
           <FiUser size={24} />
         </div>
 

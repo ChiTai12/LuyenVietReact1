@@ -3,7 +3,7 @@ import { fetchRssItems } from "../utils/rss";
 import { FiExternalLink, FiRefreshCw, FiShare2 } from "react-icons/fi";
 import { useApp } from "../context/AppContext";
 import { shareLink } from "../utils/share";
-import { useToast } from "../context/ToastContext";
+import { useToast } from "../context/useToast";
 
 const FEEDS = [
   {
@@ -178,10 +178,11 @@ export default function Explore() {
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const filtered = useMemo(() => {
-    if (!selectedCategory || selectedCategory === "Tất cả") return items;
-    return items.filter((i) => i.category === selectedCategory);
-  }, [items, selectedCategory]);
+  // Explore shows external feeds — do not auto-filter by the app's selectedCategory
+  // because feeds come from third-party sources and their categories may not
+  // match the app's internal taxonomy. We keep a short note for users when a
+  // category is selected in the header.
+  const filtered = items;
 
   return (
     <div className="explore-container">
@@ -189,6 +190,12 @@ export default function Explore() {
         <div className="explore-title-section">
           <h1 className="explore-title">Khám phá</h1>
           <p className="explore-subtitle">Tin tức mới nhất từ VnExpress</p>
+          {selectedCategory && selectedCategory !== "Tất cả" && (
+            <p style={{ marginTop: 8, color: "#6b7280", fontSize: 13 }}>
+              Lưu ý: Khám phá là nguồn tin tổng hợp từ bên ngoài — lọc theo
+              chuyên mục có thể không chính xác cho các bài này.
+            </p>
+          )}
         </div>
         <div className="explore-actions">
           <button
