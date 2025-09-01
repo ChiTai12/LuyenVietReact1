@@ -316,29 +316,32 @@ export function AppProvider({ children }) {
     });
   }
 
-  const toggleFavorite = useCallback(
-    (postId) => {
-      // Read current presence synchronously and update states separately
-      const wasPresent = favorites.has(postId);
-      setFavorites((prev) => {
-        const next = new Set(prev);
-        wasPresent ? next.delete(postId) : next.add(postId);
-        return next;
-      });
-      // update currentUser favoritesCount (do not call setState inside another updater)
+  const toggleFavorite = useCallback((postId) => {
+    // Toggle in a functional way and derive favoritesCount from set size to avoid
+    // negative counts or out-of-sync values.
+    setFavorites((prev) => {
+      const next = new Set(prev);
+      if (next.has(postId)) next.delete(postId);
+      else next.add(postId);
+      // Keep user favoritesCount consistent with the Set size
       setCurrentUser((cu) => {
         if (!cu) return cu;
-        const favoritesCount = (cu.favoritesCount || 0) + (wasPresent ? -1 : 1);
-        return { ...cu, favoritesCount };
+        return { ...cu, favoritesCount: next.size };
       });
-    },
-    [favorites]
-  );
+      return next;
+    });
+  }, []);
 
   function toggleFavoriteExternal(item) {
     setFavorites((prev) => {
       const next = new Set(prev);
-      next.has(item.id) ? next.delete(item.id) : next.add(item.id);
+      if (next.has(item.id)) next.delete(item.id);
+      else next.add(item.id);
+      // Mirror favoritesCount with the Set size
+      setCurrentUser((cu) => {
+        if (!cu) return cu;
+        return { ...cu, favoritesCount: next.size };
+      });
       return next;
     });
     setFavoriteExternalItems((prev) => {
@@ -356,7 +359,12 @@ export function AppProvider({ children }) {
     const ensureId = (c) =>
       c && c.id
         ? c
-        : { ...c, id: `${postId}_${Date.now()}_${Math.random().toString(36).slice(2,7)}` };
+        : {
+            ...c,
+            id: `${postId}_${Date.now()}_${Math.random()
+              .toString(36)
+              .slice(2, 7)}`,
+          };
     setPosts((prev) =>
       prev.map((p) =>
         p.id === postId
